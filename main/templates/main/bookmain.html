@@ -1,0 +1,92 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% load mathfilters %} {% block content %}
+
+
+
+<section>
+
+    <div class="container">
+            <div class="category-tab"><!--category-tab-->
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tshirt" data-toggle="tab">OurBook</a></li>
+                        <li><a href="#blazers" data-toggle="tab">NextBook</a></li>
+                        <li><a href="#sunglass" data-toggle="tab">NowBook</a></li>
+                    </ul>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        {% for cateName in category %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {% if cateName.categoryName == "전체" %}
+                                    <a href="/book/">{{ cateName.categoryName }}</a>
+                                    {% else %}
+                                    <a href="/book?kindName={{ cateName.categoryName }}">{{ cateName.categoryName }}</a>
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!--/category-products-->
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Book</h2>
+                </div>
+
+                <div class="category-tab">
+                    <div class="features_items">
+                        <div class="tab-pane fade active in">
+                            {% for ourbook in ourbooks %}
+                            <div class="col-sm-3">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo">
+                                            <a href=""><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                                    
+                <ul class="pagination">
+                    {% if startPageNum != 1 %}
+                    <li><a href="/book?pageNum={{startPageNum | sub:1}}&kindName={{filterName}}">&laquo;</a></li>
+                    {% else %}
+                    <li><a href="javascript:" class="muted">&laquo;</a></li>
+                    {% endif %}
+                    
+                    {% for i in bottomPages %}
+                        {% if i == pageNum %}
+                        <li><a class="active" href="/book?pageNum={{i }}&kindName={{filterName}}">{{i }}</a></li>
+                        {% else %}
+                        <li><a href="/book?pageNum={{i }}&kindName={{filterName}}">{{i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if endPageNum < totalPageCount %}
+                    <li><a href="/book?pageNum={{endPageNum | add:1}}&kindName={{filterName}}">&raquo;</a></li>
+                    {% else %}
+                    <li><a href="javascript:" class="muted">&raquo;</a></li>
+                    {% endif %}
+                    </ul>
+                <!--/category-tab-->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

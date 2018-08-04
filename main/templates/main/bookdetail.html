@@ -1,0 +1,78 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        {% for cateName in category %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {% if cateName.categoryName == "전체" %}
+                                    <a href="/book/">{{ cateName.categoryName }}</a>
+                                    {% else %}
+                                    <a href="/book?kindName={{ cateName.categoryName }}">{{ cateName.categoryName }}</a>
+                                    {% endif %}
+                                </h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!--/category-products-->
+                </div>
+            </div>
+
+            <div class="product-details">
+                {% for ourbook in ourbook %}
+                <!--product-details-->
+                <div class="col-sm-5">
+                    <div class="view-product">
+                        <img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" />
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="product-information">
+                        <!--/product-information-->
+                        <h2>{{ ourbook.booktitle }}</h2>
+                        <p>ISBN : {{ ourbook.bookId }}</p>
+                        <p class="star_rating">
+                            <label>Rating : </label>
+                            <a href="#" class="on">★</a>
+                            <a href="#" class="on">★</a>
+                            <a href="#" class="on">★</a>
+                            <a href="#">★</a>
+                            <a href="#">★</a>
+                        </p>
+                        <p>
+                            <b>Author:</b> {{ ourbook.author }}</p>
+                        <p>
+                            <b>Category:</b> {{ ourbook.category }}</p>
+                        <p>
+                            <b>Publisher:</b> {{ ourbook.publisher }}</p>
+                        <p>
+                            <b>Presentation:</b> {{ ourbook.presentation }}</p>
+                        <p>
+                            <i class="fa fa-calendar-o" style="color:#FE980F;" ></i>   {{ ourbook.readingdate }}</p>
+                    </div>
+                    <!--/product-information-->
+                </div>
+                <div class="tab-pane fade active in" id="reviews">
+                    <div class="col-sm-12">
+                        <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
+                        <p>[출처 : YES24 제공]</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!--/product-details-->
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}
