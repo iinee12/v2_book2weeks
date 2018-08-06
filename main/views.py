@@ -106,7 +106,7 @@ def readingWirte(request):
             post.created = nowDateTime
             post.writer = 'jjinho28'
             post.save()
-            return redirect('main/readinglist.html')
+            return redirect('../readinglist/')
     else:
         form = PostForm()
     return render(request, 'main/readingwrite.html', {'form': form})
