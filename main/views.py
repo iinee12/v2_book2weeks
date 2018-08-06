@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
+from .forms import PostForm
 from .models import Meeting, category, Ourbooks
+from django.shortcuts import redirect
+import time
 
 # index page loading.
 def index(request):
@@ -86,3 +88,25 @@ def bookDetail(request):
 
     context = {'category':cateName, 'ourbook':ourbook}
     return render(request, 'main/bookDetail.html', context)
+
+# readinglist page loading.
+def readinglist(request):
+    return render(request, 'main/readinglist.html')
+
+
+
+# readingwrite page loading.
+def readingWirte(request):
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.writer = 'jjinho28'
+            post.save()
+            return redirect('main/readinglist.html')
+    else:
+        form = PostForm()
+    return render(request, 'main/readingwrite.html', {'form': form})

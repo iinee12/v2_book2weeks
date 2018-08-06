@@ -1,0 +1,23 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% block content %}
+<div id="contact-page" class="container">
+    <div class="bg">   	
+        <div class="row">  	
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.title }}
+                
+                {{ form.content|safe }}
+                <br/>
+                
+                <button type="submit" class="btn btn-default get"
+                style="margin-bottom: 15px;float:right;">등록</button>
+                <button type="button" class="btn btn-default get"
+                style="margin-bottom: 15px;margin-right: 13px; float:right;">목록</button>
+
+
+            </form>
+        </div>  
+    </div>	
+</div><!--/#contact-page-->
+{% endblock %}

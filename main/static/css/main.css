@@ -1540,12 +1540,15 @@ h2.title {
 }
 
 .breadcrumbs {
+  display: table;
   position: relative;
+  margin-left: auto;
+  margin-right: 0px;
 }
 
 .breadcrumbs .breadcrumb {
   background:transparent;
-  margin-bottom: 75px;
+  margin-bottom: 30px;
   padding-left: 0;
 }
 
@@ -1555,22 +1558,7 @@ h2.title {
   padding: 3px 7px;
 }
 
-.breadcrumbs .breadcrumb li a:after {
-  content:"";
-  height:auto;
-  width: auto;
-  border-width: 8px;
-  border-style: solid;
-  border-color:transparent transparent transparent #FE980F;
-  position: absolute;
-  top: 11px;
-  left:48px;
 
-}
-
-.breadcrumbs .breadcrumb > li + li:before {
-  content: " ";
-}
 
 #cart_items .cart_info {
   border: 1px solid #E6E4DF;
@@ -2547,4 +2535,9 @@ h2.title {
 
 .book-calendar-o{
   color:#FE980F;
+}
+#id_title{
+  width:100%;
+  height:40px;
+  margin-bottom: 15px;
 }

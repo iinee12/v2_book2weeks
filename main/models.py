@@ -1,4 +1,6 @@
 from django.db import models
+from django_summernote import models as summer_model
+from django_summernote import fields as summer_fields
 
 # Create your models here.
 
@@ -34,5 +36,10 @@ class category( models.Model ):
     categoryCode = models.CharField(max_length=14)
     categoryName = models.CharField(max_length=30)
     def __str__(self):
-        return self.categoryName    
+        return self.categoryName
 
+class Reading( summer_model.Attachment ):
+    title = models.CharField(max_length=30)
+    content = summer_fields.SummernoteTextField(default='')
+    writer = models.CharField(max_length=30)
+    created = models.CharField(max_length=30)
