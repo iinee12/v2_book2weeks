@@ -5,7 +5,7 @@ from django_summernote import fields as summer_fields
 # Create your models here.
 
 class Ourbooks( models.Model ):
-    bookId = models.CharField(max_length=14)
+    bookId = models.CharField(max_length=14, primary_key=True)
     author = models.CharField(max_length=200)
     readingdate = models.CharField(max_length=14)
     category = models.CharField(max_length=14)
@@ -43,3 +43,6 @@ class Reading( summer_model.Attachment ):
     content = summer_fields.SummernoteTextField(default='')
     writer = models.CharField(max_length=30)
     created = models.CharField(max_length=30)
+    bookId = models.ForeignKey(Ourbooks, '')
+    def __str__(self):
+        return self.title

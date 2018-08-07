@@ -1,11 +1,12 @@
 {% extends "main/layout.html" %}
 <!DOCTYPE html> {% load static %} {% block content %}
 
+
 <section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="#">Write +</a></li>
+				  <li><a href="/readingwrite/">Write +</a></li>
 				</ol>
 			</div>
 			<div class="table-responsive cart_info">
@@ -19,49 +20,22 @@
 						</tr>
 					</thead>
 					<tbody>
+						{% for read in reading %}
 						<tr>
 							<td class="cart_product">
 								<a href=""><img src="images/cart/one.png" alt=""></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
+								<h4><a href="">{{ read.title }}</a></h4>
+								<p>Book : {{ read.bookId.booktitle }}</p>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<p>{{ read.writer }}</p>
 							</td>
-							<td class="cart_quantity">
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/two.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772dfsdfdslfjksldjflksdjflksdjflkdsjflksdjflkdsvcvcxvcxvxcvcxvjflkdsjflksdjflkdsjflk</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
+							<td class="cart_quantity">{{ read.created }}
 							</td>
 						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/three.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-							</td>
-						</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>

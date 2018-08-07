@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm
-from .models import Meeting, category, Ourbooks
+from .models import Meeting, category, Ourbooks, Reading
 from django.shortcuts import redirect
 import time
 
@@ -91,8 +91,11 @@ def bookDetail(request):
 
 # readinglist page loading.
 def readinglist(request):
-    return render(request, 'main/readinglist.html')
-
+    reading = Reading.objects.select_related('bookId')
+    print(reading)
+    context = {'reading':reading}
+    return render(request, 'main/readinglist.html', context)
+    
 
 
 # readingwrite page loading.
