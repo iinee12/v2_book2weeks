@@ -2541,3 +2541,136 @@ h2.title {
   height:40px;
   margin-bottom: 15px;
 }
+
+
+
+.main{
+	position: relative;
+	border-left: 1px #e1e0e0 solid;
+	border-right: 1px #e1e0e0 solid;
+	height: auto;
+	overflow: hidden;
+}
+
+.main article{
+	margin: 80px 0;
+	overflow: hidden;
+}
+.main #article_image,
+.main .post{
+	float: left; 
+}
+
+.main #article_image{
+	width: 470px;
+	margin-right: 40px;
+}
+.main .post{
+	width: 500px;
+	float: left;
+}
+
+.main .post h1.title,
+.main2 .post h1.title{
+	font-family: 'LatoBold', 'Helvetica', arial;
+	font-weight: bold;
+  font-size: 27px;
+	text-transform: uppercase;
+	line-height: 30px;
+	margin-bottom: 50px;
+}
+
+.main .title a,
+.main2 .title a{
+	text-decoration: none;
+	color: #4f4e4e;
+}
+
+.main .title a:hover,
+.main2 .title a:hover{
+	color: #696763;
+}
+
+.main .post p,	
+.main2 .post p{	
+	font-family: 'LatoRegular', 'Helvetica', arial;
+	font-size: 16px;
+	color: #606060;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+
+.main a.read_more,
+.main2 a.read_more{
+	font-family: 'LatoRegular', 'Helvetica', arial;
+	display: inline-block;
+	padding: 10px 30px 13px 30px;
+	background: #ffffff;
+	border: 2px #c2c2c2 solid;
+	color: #c2c2c2;
+	text-decoration: none;
+	margin-top: 14px;
+
+	border-radius: 100px;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	-o-border-radius: 100px;
+	-ms-border-radius: 100px;
+}
+
+.main a.read_more:hover,
+.main2 a.read_more:hover{
+	border: 2px #606060 solid;
+	color: #606060;
+}
+
+.main a.read_more i.read_more_arrow,
+.main2 a.read_more i.read_more_arrow{
+	width: 15px;
+	height: 7px;
+	background: url('../img/read_more_arrow.png') no-repeat;
+	display: inline-block;
+	opacity: 0;
+	margin-left: -5px;
+}
+
+.main a.read_more:hover i.read_more_arrow,
+.main2 a.read_more:hover i.read_more_arrow{
+	opacity: 1;
+	margin-left: 5px;
+}
+
+.main2{
+	padding-top: 80px;
+	position: relative;
+	border-left: 1px #e1e0e0 solid;
+	border-right: 1px #e1e0e0 solid;
+	height: auto;
+	overflow: hidden;
+}
+
+.main2 .content{
+	width: 620px;
+	float: left;
+}
+
+.main2 .post{
+	width: 580px;
+	margin-left: 20px;
+	margin-top: 20px;
+	margin-bottom: 80px;
+}
+
+.meeting_content{
+  display: -webkit-box; 
+  display: -ms-flexbox; 
+  display: box; 
+  margin-top:1px; 
+  max-height:80px; 
+  overflow:hidden; 
+  vertical-align:top; 
+  text-overflow: ellipsis; 
+  word-break:break-all; 
+  -webkit-box-orient:vertical; 
+  -webkit-line-clamp:4
+}

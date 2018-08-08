@@ -39,10 +39,11 @@ class category( models.Model ):
         return self.categoryName
 
 class Reading( summer_model.Attachment ):
+    readId = models.CharField(max_length=30, primary_key=True, default='1')
     title = models.CharField(max_length=30)
     content = summer_fields.SummernoteTextField(default='')
     writer = models.CharField(max_length=30)
     created = models.CharField(max_length=30)
     bookId = models.ForeignKey(Ourbooks, '')
     def __str__(self):
-        return self.title
+        return str(self.title)+'('+str(self.readId)+')'

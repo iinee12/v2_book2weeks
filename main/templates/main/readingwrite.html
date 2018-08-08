@@ -6,11 +6,12 @@
             <form method="post" action="/readingwrite/">
                 {% csrf_token %}
                 {{ form.title }}
+                {{ form.bookId }}
                 {{ form.content|safe }}
                 <br/>
                 <button type="submit" class="btn btn-default get"
                 style="margin-bottom: 15px;float:right;">등록</button>
-                <button type="button" class="btn btn-default get"
+                <button type="button" onclick="location=/readinglist/" class="btn btn-default get"
                 style="margin-bottom: 15px;margin-right: 13px; float:right;">목록</button>
             </form>
         </div>  

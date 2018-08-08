@@ -1,0 +1,60 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% block content %}
+{% load mathfilters %}
+<section class="main wrapper">
+        <div class="container">
+        {% for onemeeting in meeting %} 
+		<article>
+			<div id="article_image">
+				<a href="#">
+					<img src="{% static onemeeting.photopath %}" style="width: 450px" >
+				</a>
+			</div>
+			<div class="post">
+				<h1 class="title" >
+					<a href="#" style="color:#FE980F;">{{ onemeeting.meetingtitle }}</a>
+				</h1>
+				
+                <p><i class="fa fa-calendar" style="color:#FE980F;"></i>  {{ onemeeting.meetingdate }}<br/><br/>
+                    <i class="fa fa-map-marker" style="color:#FE980F;"></i>     {{ onemeeting.site }}<br/>
+                    <i class="fa fa-user" style="color:#FE980F;"></i>  {{ onemeeting.attendants }}
+                </p>
+                
+				<p class="meeting_content">{{ onemeeting.content }}</p>
+
+				
+			</div>
+        </article>
+        {% endfor %}
+        <ul class="pagination">
+                {% if startPageNum != 1 %}
+                <li><a href="/meetingmain?pageNum={{startPageNum | sub:1}}">&laquo;</a></li>
+                {% else %}
+                <li><a href="javascript:" class="muted">&laquo;</a></li>
+                {% endif %}
+                
+                {% for i in bottomPages %}
+                    {% if i == pageNum %}
+                    <li><a class="active" href="/meetingmain?pageNum={{i }}">{{i }}</a></li>
+                    {% else %}
+                    <li><a href="/meetingmain?pageNum={{i }}">{{i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if endPageNum < totalPageCount %}
+                <li><a href="/meetingmain?pageNum={{endPageNum | add:1}}">&raquo;</a></li>
+                {% else %}
+                <li><a href="javascript:" class="muted">&raquo;</a></li>
+                {% endif %}
+                </ul>
+        </div>
+
+ 
+
+	</section><!-- Main End -->
+
+
+
+
+
+{% endblock %}
