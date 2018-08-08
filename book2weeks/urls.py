@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', include('main.urls')),
+    path('ec2-13-124-16-208.ap-northeast-2.compute.amazonaws.com', include('main.urls')),
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
