@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,13 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3qigia81#^_zrlj^dwq@@(mwai7u1ics=zv=+ex2^x^y@1_tzn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = [
-    '18.219.169.163',
-    'localhost',
-    'http://13.125.185.199',
-]
 
 
 # Application definition
@@ -57,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'book2weeks.urls'
-LOGIN_URL = 'http://localhost:8000/login'
+
 
 TEMPLATES = [
     {
