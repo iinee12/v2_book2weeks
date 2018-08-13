@@ -26,6 +26,7 @@ SECRET_KEY = '3qigia81#^_zrlj^dwq@@(mwai7u1ics=zv=+ex2^x^y@1_tzn'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '18.219.169.163',
     'localhost',
     'http://13.125.185.199',
 ]
@@ -56,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'book2weeks.urls'
+LOGIN_URL = 'http://localhost:8000/login'
 
 TEMPLATES = [
     {

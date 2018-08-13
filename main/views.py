@@ -89,7 +89,7 @@ def bookDetail(request):
         book.imgindex = book.bookId[-3:]
 
     context = {'category':cateName, 'ourbook':ourbook}
-    return render(request, 'main/bookDetail.html', context)
+    return render(request, '/bookdetail.html', context)
 
 # readinglist page loading.
 def readinglist(request):
@@ -121,7 +121,8 @@ def readingWirte(request):
             return redirect('../readinglist/')
     else:
         form = PostForm()
-    return render(request, 'main/readingwrite.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'main/readingwrite.html', context)
 
 def meetingmain(request):
     meeting = Meeting.objects.all().order_by('-meetingdate')

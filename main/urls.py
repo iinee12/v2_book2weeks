@@ -14,5 +14,13 @@ urlpatterns = [
     path('readingdetail/', views.readingdetail),
     path('meetingmain/', views.meetingmain),
     url(r'^login/$', views.signin, name='/login'),
+    url(
+        r'^accounts/logout/',
+        auth_views.logout,
+        name='logout',
+        kwargs={
+            'next_page': settings.LOGIN_URL,
+        }
+    ),
     url(r'^summernote/', include('django_summernote.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
