@@ -81,14 +81,14 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li>
-									<a href="/" class="active">Home</a>
+									<a href="/" id="menuHome" class="active" onclick="menu_click('Home');">Home</a>
 								</li>
 								<li class="dropdown">
-									<a href="/book/">Book<i class="fa fa-angle-down"></i>
+									<a href="/book/" id="menuBook" onclick="menu_click('Book');">Book<i class="fa fa-angle-down"></i>
 									</a>
 									<ul role="menu" class="sub-menu">
 										<li>
-											<a href="/book/">OurBook</a>
+											<a  href="/book/"  >OurBook</a>
 										</li>
 										<li>
 											<a href="/book/">NextBook</a>
@@ -99,10 +99,10 @@
 									</ul>
 								</li>
 								<li>
-									<a href="/readinglist/">Reading</a>
+									<a href="/readinglist/" id="menuReading" onclick="menu_click('Reading');">Reading</a>
 								</li>
 								<li>
-									<a href="/meetingmain/">Meeting</a>
+									<a href="/meetingmain/" id="menuMeeting" onclick="menu_click('Meeting');">Meeting</a>
 								</li>
 							</ul>
 						</div>
@@ -152,6 +152,18 @@
 	<script src="{% static 'js/price-range.js' %}"></script>
 	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
+	<script>
+	function menu_click(menuName){
+		var arrayMenuList = ["menuHome", "menuBook","menuReading","menuMeeting"];
+		arrayMenuList.splice(arrayMenuList.indexOf("menu"+menuName),1);
+		document.getElementById(arrayMenuList[0]).className = "";
+		document.getElementById(arrayMenuList[1]).className = "";
+		document.getElementById(arrayMenuList[2]).className = "";
+		document.getElementById("menu"+menuName).className = "active";
+		alert(document.getElementById(arrayMenuList[0]).className);
+	}
+
+	</script>
 </body>
 
 </html>
