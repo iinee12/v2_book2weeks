@@ -37,8 +37,10 @@ def bookpage(request):
 
     PAGE_ROW_COUNT = 16
     PAGE_DISPLAY_COUNT = 5
-    
-    
+
+    if len(ourbook) == 0 : noresult = None
+    else : noresult = 'exist'
+
     for book in ourbook:
         book.imgindex = book.bookId[-3:]
     
@@ -74,7 +76,8 @@ def bookpage(request):
             'totalPageCount':totalPageCount,
             'startPageNum':startPageNum,
             'endPageNum':endPageNum,
-            'filterName':filterName
+            'filterName':filterName,
+            'noresult':noresult
             }
             )
 

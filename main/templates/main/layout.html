@@ -81,7 +81,7 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li>
-									<a href="/" id="menuHome" class="active" onclick="menu_click('Home');">Home</a>
+									<a href="/" id="menuHome" class="" onclick="menu_click('Home');">Home</a>
 								</li>
 								<li class="dropdown">
 									<a href="/book/" id="menuBook" onclick="menu_click('Book');">Book<i class="fa fa-angle-down"></i>
@@ -160,7 +160,6 @@
 		document.getElementById(arrayMenuList[1]).className = "";
 		document.getElementById(arrayMenuList[2]).className = "";
 		document.getElementById("menu"+menuName).className = "active";
-		alert(document.getElementById(arrayMenuList[0]).className);
 	}
 
 	</script>

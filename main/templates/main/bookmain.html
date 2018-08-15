@@ -47,6 +47,10 @@
                 <div class="category-tab">
                     <div class="features_items">
                         <div class="tab-pane fade active in">
+                            {% if noresult is None %}
+                                <h2 style="text-align: center;">해당 분야의 책이 존재하지 않습니다.
+                                    <br/><br/>독서의 폭을 넓혀 봅시다!</h2>
+                            {% else %}
                             {% for ourbook in ourbooks %}
                             <div class="col-sm-3">
                                 <div class="product-image-wrapper">
@@ -58,10 +62,13 @@
                                 </div>
                             </div>
                             {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                                    
+                {% if noresult is None %}
+                
+                {% else %}     
                 <ul class="pagination">
                     {% if startPageNum != 1 %}
                     <li><a href="/book?pageNum={{startPageNum | sub:1}}&kindName={{filterName}}">&laquo;</a></li>
@@ -83,6 +90,7 @@
                     <li><a href="javascript:" class="muted">&raquo;</a></li>
                     {% endif %}
                     </ul>
+                    {% endif %}
                 <!--/category-tab-->
             </div>
         </div>

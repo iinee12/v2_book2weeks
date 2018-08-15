@@ -7,7 +7,10 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Reading
-        fields = ('content', 'title', 'bookId' )
+        widgets = {
+            'writer': forms.TextInput({'type': 'hidden'})
+        }
+        fields = ('content', 'title', 'bookId', 'writer' )
 
 
 class LoginForm(forms.ModelForm):
