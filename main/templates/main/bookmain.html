@@ -48,8 +48,10 @@
                     <div class="features_items">
                         <div class="tab-pane fade active in">
                             {% if noresult is None %}
+                            <img style="margin-left: auto; margin-right: auto; display: block;"
+                             src="{% static 'images/content/noresult.png' %}"/>
                                 <h2 style="text-align: center;">해당 분야의 책이 존재하지 않습니다.
-                                    <br/><br/>독서의 폭을 넓혀 봅시다!</h2>
+                                    <br/>독서의 폭을 넓혀 봅시다!</h2>
                             {% else %}
                             {% for ourbook in ourbooks %}
                             <div class="col-sm-3">

@@ -92,7 +92,7 @@ def bookDetail(request):
         book.imgindex = book.bookId[-3:]
 
     context = {'category':cateName, 'ourbook':ourbook}
-    return render(request, '/bookdetail.html', context)
+    return render(request, 'main/bookdetail.html', context)
 
 # readinglist page loading.
 def readinglist(request):
