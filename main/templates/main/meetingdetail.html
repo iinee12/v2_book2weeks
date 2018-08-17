@@ -1,0 +1,41 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% block content %}
+
+
+<div id="contact-page" class="container">
+    	<div class="bg">   	
+    		<div class="row">
+                    {% for onemeeting in meeting %}
+	    		<div class="col-sm-6">
+	    			<div class="contact-form">
+	    				<h2 class="title text-center">PICTURE</h2>
+                        <div class="status alert alert-success" style="display: none"></div>
+                        
+                        <img style="width: 100%; height: 100%;margin-left: auto; margin-right: auto; display: block; margin-bottom: 10px" 
+                        src="{% static onemeeting.photopath %}" style="width: 450px" >
+                        
+                        
+	    			</div>
+                </div>
+                 
+	    		<div class="col-sm-6">
+	    			<div class="contact-info">
+	    				<h2 class="title text-center">Meeting Info</h2>
+	    				<address>
+	    					<p><i class="fa fa-calendar" style="color:#FE980F;"></i>  {{ onemeeting.meetingdate }}</p>
+							<p><i class="fa fa-map-marker" style="color:#FE980F;"></i>     {{ onemeeting.site }}</p>
+                            <p><i class="fa fa-user" style="color:#FE980F;"></i>  {{ onemeeting.attendants }}</p>
+                            
+							<p style="margin-top: 10px;">{{ onemeeting.content|linebreaksbr }}</p>
+	    				</address>
+	    			</div>
+                </div>
+                {% endfor %} 
+	    	</div>  
+    	</div>	
+    </div><!--/#contact-page-->
+
+
+
+
+{% endblock %}

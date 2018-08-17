@@ -9,13 +9,26 @@
             <div class="category-tab"><!--category-tab-->
                 <div class="col-sm-12">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tshirt" data-toggle="tab">OurBook</a></li>
-                        <li><a href="#blazers" data-toggle="tab">NextBook</a></li>
-                        <li><a href="#sunglass" data-toggle="tab">NowBook</a></li>
+                        <li id="bookmenu1" class="active"><a href="" onclick="f_gobookmenu(1)"  data-toggle="tab">OurBook</a></li>
+                        <li id="bookmenu2"><a href="" onclick="f_gobookmenu(2)" data-toggle="tab">NextBook</a></li>
+                        <li id="bookmenu3"><a href="" onclick="f_gobookmenu(3)" data-toggle="tab">NowBook</a></li>
                     </ul>
                 </div>
             </div>
-        <div class="row">
+        <div id="nowbookPage" class="row">
+                {% for ourbook in nowbook %}
+                <!--product-details-->
+                <div class="col-sm-5">
+                    <div class="view-product">
+                        <img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" />
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+        <div id="nextbookPage" class="row">
+
+        </div>
+        <div id="ourbookPage" class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
@@ -98,5 +111,26 @@
         </div>
     </div>
 </section>
+<script>
+    $( document ).ready(function() {
+    alert( "ready!" );
+    });
+    
 
+        function f_gobookmenu(menuid){
+            if(menuid == 1){
+                document.getElementById("ourbookPage").style.display = "block";  
+                document.getElementById("nextbookPage").style.display = "none";
+                document.getElementById("nowbookPage").style.display = "none";
+            }else if(menuid == 2){
+                document.getElementById("ourbookPage").style.display = "none";  
+                document.getElementById("nextbookPage").style.display = "block";
+                document.getElementById("nowbookPage").style.display = "none";
+            }else{
+                document.getElementById("ourbookPage").style.display = "none";  
+                document.getElementById("nextbookPage").style.display = "none";
+                document.getElementById("nowbookPage").style.display = "block";
+            }
+        }
+    </script>
 {% endblock %}

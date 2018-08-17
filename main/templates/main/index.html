@@ -24,7 +24,8 @@
 											<span>M</span>eeting</h1>
 										<h2>{{ onemeeting.meetingtitle }}</h2>
 										<p class="slider_content">{{ onemeeting.content }}</p>
-										<button type="button" class="btn btn-default get">More</button>
+										<a type="button" href="/meeting?meetingid={{ onemeeting.meetingId}}" 
+										class="btn btn-default get">More</a>
 									</div>
 									<div class="col-sm-6">
 										<img src="{% static onemeeting.photopath %}" class="girl img-responsive" alt="" />

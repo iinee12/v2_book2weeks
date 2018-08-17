@@ -25,7 +25,7 @@ def index(request):
 
 # bookmain page loading.
 def bookpage(request):
-    
+    nowbook = Ourbooks.objects.filter(statusflag='C')
     cateName = category.objects.all().order_by('categoryCode')
     
     filterName = request.GET.get('kindName')
@@ -70,6 +70,7 @@ def bookpage(request):
     return render(request, 'main/bookmain.html', 
             {
             'ourbooks':ourbook,
+            'nowbook':nowbook,
             'category':cateName,
             'pageNum':pageNum,
             'bottomPages':bottomPages,
@@ -182,3 +183,12 @@ def signin(request):
     else:
         form = LoginForm()
         return render(request, 'main/login.html', {'form': form})
+
+
+
+
+def meetingdetail(request):
+    filterName = request.GET.get('meetingid')
+    meeting = Meeting.objects.filter(meetingId=filterName)
+    context = {'meeting':meeting}
+    return render(request, 'main/meetingdetail.html', context)

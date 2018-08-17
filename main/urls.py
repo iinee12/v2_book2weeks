@@ -13,6 +13,7 @@ urlpatterns = [
     path('readingwrite/', views.readingWirte),
     path('readingdetail/', views.readingdetail),
     path('meetingmain/', views.meetingmain),
+    path('meeting/', views.meetingdetail),
     url(r'^login/$', views.signin, name='/login'),
     url(
         r'^accounts/logout/',

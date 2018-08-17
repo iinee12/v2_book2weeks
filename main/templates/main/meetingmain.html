@@ -6,13 +6,13 @@
         {% for onemeeting in meeting %} 
 		<article>
 			<div id="article_image">
-				<a href="#">
+				<a href="/meeting?meetingid={{ onemeeting.meetingId}}">
 					<img src="{% static onemeeting.photopath %}" style="width: 450px" >
 				</a>
 			</div>
 			<div class="post">
 				<h1 class="title" >
-					<a href="#" style="color:#FE980F;">{{ onemeeting.meetingtitle }}</a>
+					<a href="/meeting?meetingid={{ onemeeting.meetingId}}" style="color:#FE980F;">{{ onemeeting.meetingtitle }}</a>
 				</h1>
 				
                 <p><i class="fa fa-calendar" style="color:#FE980F;"></i>  {{ onemeeting.meetingdate }}<br/><br/>
