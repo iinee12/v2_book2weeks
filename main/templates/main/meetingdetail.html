@@ -2,8 +2,13 @@
 <!DOCTYPE html> {% load static %} {% block content %}
 
 
+<section id="advertisement">
+	<div class="container">
+		<img src={% static 'images/shop/advertisement.jpg' %} alt="" />
+	</div>
+</section>
 <div id="contact-page" class="container">
-    	<div class="bg">   	
+    	<div class="bg">
     		<div class="row">
                     {% for onemeeting in meeting %}
 	    		<div class="col-sm-6">
