@@ -23,9 +23,21 @@ def index(request):
 
     return render(request, 'main/index.html', context)
 
+
+def nowbook(request):
+    nowbook = Ourbooks.objects.filter(statusflag='C')
+    print(nowbook)
+    context = {'nowbook':nowbook}
+    return render(request, 'main/nowbook.html', context)
+
+def nextbook(request):
+    
+    return render(request, 'main/nextbook.html')
+
+
 # bookmain page loading.
 def bookpage(request):
-    nowbook = Ourbooks.objects.filter(statusflag='C')
+    
     cateName = category.objects.all().order_by('categoryCode')
     
     filterName = request.GET.get('kindName')
@@ -70,7 +82,6 @@ def bookpage(request):
     return render(request, 'main/bookmain.html', 
             {
             'ourbooks':ourbook,
-            'nowbook':nowbook,
             'category':cateName,
             'pageNum':pageNum,
             'bottomPages':bottomPages,

@@ -1,0 +1,36 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% load mathfilters %} {% block content %}
+
+<section>
+
+    <div class="container">
+        <div class="category-tab">
+            <!--category-tab-->
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li id="bookmenu1">
+                        <a href="" onclick="f_gobookmenu(1)" data-toggle="tab">OurBook</a>
+                    </li>
+                    <li id="bookmenu2" class="active">
+                        <a href="" onclick="f_gobookmenu(2)" data-toggle="tab">NextBook</a>
+                    </li>
+                    <li id="bookmenu3">
+                        <a href="" onclick="f_gobookmenu(3)" data-toggle="tab">NowBook</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function f_gobookmenu(menuid) {
+        if (menuid == 1) {
+            location.href = "/book/";
+        } else if (menuid == 2) {
+            location.href = "/nextbook/";
+        } else {
+            location.href = "/nowbook/";
+        }
+    }
+</script> {% endblock %}

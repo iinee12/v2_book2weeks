@@ -15,60 +15,7 @@
                     </ul>
                 </div>
             </div>
-        <div id="nowbookPage" class="row" style="display:none;">
-                {% for ourbook in nowbook %}
-                <!--product-details-->
-                
-                <div class="col-sm-5">
-                    <div class="view-product">
-                        <img style="width: 50%; height: 50%; margin-left: 100px;"
-                        src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" />
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-information">
-                        <!--/product-information-->
-                        <h2>{{ ourbook.booktitle }}</h2>
-                        <p>ISBN : {{ ourbook.bookId }}</p>
-                        <p>
-                            <b>Author:</b> {{ ourbook.author }}</p>
-                        <p>
-                            <b>Category:</b> {{ ourbook.category }}</p>
-                        <p>
-                            <b>Publisher:</b> {{ ourbook.publisher }}</p>
-                        <p>
-                            <b>Presentation:</b> {{ ourbook.presentation }}</p>
-                        <p>
-                            <i class="fa fa-calendar-o" style="color:#FE980F;" ></i>   {{ ourbook.readingdate }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-                <div id="disqus_thread"></div>
-<script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://book2weeks.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                            
-        </div>
-        <div id="nextbookPage" class="row" style="display:none;">
-
-        </div>
-        <div id="ourbookPage" class="row">
+         <div id="ourbookPage" class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
@@ -151,25 +98,14 @@ s.setAttribute('data-timestamp', +new Date());
         </div>
     </div>
 </section>
-<script>
-    $( document ).ready(function() {
-    alert( "ready!" );
-    });
-    
-
+    <script>
         function f_gobookmenu(menuid){
             if(menuid == 1){
-                document.getElementById("ourbookPage").style.display = "block";  
-                document.getElementById("nextbookPage").style.display = "none";
-                document.getElementById("nowbookPage").style.display = "none";
+                location.href="/book/";
             }else if(menuid == 2){
-                document.getElementById("ourbookPage").style.display = "none";  
-                document.getElementById("nextbookPage").style.display = "block";
-                document.getElementById("nowbookPage").style.display = "none";
+                location.href="/nextbook/";
             }else{
-                document.getElementById("ourbookPage").style.display = "none";  
-                document.getElementById("nextbookPage").style.display = "none";
-                document.getElementById("nowbookPage").style.display = "block";
+                location.href="/nowbook/";
             }
         }
     </script>

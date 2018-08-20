@@ -1,0 +1,60 @@
+{% extends "main/layout.html" %}
+<!DOCTYPE html> {% load static %} {% load mathfilters %} {% block content %}
+
+<section>
+
+    <div class="container">
+            <div class="category-tab"><!--category-tab-->
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li id="bookmenu1" ><a href="" onclick="f_gobookmenu(1)"  data-toggle="tab">OurBook</a></li>
+                        <li id="bookmenu2"><a href="" onclick="f_gobookmenu(2)" data-toggle="tab">NextBook</a></li>
+                        <li id="bookmenu3" class="active"><a href="" onclick="f_gobookmenu(3)" data-toggle="tab">NowBook</a></li>
+                    </ul>
+                </div>
+            </div>
+        <div id="nowbookPage" class="row" >
+                {% for ourbook in nowbook %}
+                <!--product-details-->
+                
+                <div class="col-sm-5">
+                    <div class="view-product">
+                        <img style="width: 50%; height: 50%; margin-left: 100px;"
+                        src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="product-information">
+                        <!--/product-information-->
+                        <h2>{{ ourbook.booktitle }}</h2>
+                        <p>ISBN : {{ ourbook.bookId }}</p>
+                        <p>
+                            <b>Author:</b> {{ ourbook.author }}</p>
+                        <p>
+                            <b>Category:</b> {{ ourbook.category }}</p>
+                        <p>
+                            <b>Publisher:</b> {{ ourbook.publisher }}</p>
+                        <p>
+                            <b>Presentation:</b> {{ ourbook.presentation }}</p>
+                        <p>
+                            <i class="fa fa-calendar-o" style="color:#FE980F;" ></i>   {{ ourbook.readingdate }}</p>
+                    </div>
+                </div>
+                {% endfor %}                            
+        </div>
+    </div>
+</section>
+
+<script>
+    function f_gobookmenu(menuid){
+        if(menuid == 1){
+            location.href="/book/";
+        }else if(menuid == 2){
+            location.href="/nextbook/";
+        }else{
+            location.href="/nowbook/";
+        }
+    }
+</script>
+
+{% endblock %}
