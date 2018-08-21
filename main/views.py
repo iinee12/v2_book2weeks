@@ -109,7 +109,6 @@ def bookDetail(request):
 # readinglist page loading.
 def readinglist(request):
     reading = Reading.objects.all()
-    print(reading)
     context = {'reading':reading}
     return render(request, 'main/readinglist.html', context)
 
@@ -129,9 +128,10 @@ def readingWirte(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            print(request.session['member_id'])
             post.created = nowDateTime
-            post.writer = 'jjinho28'
-            post.readId = 'jjinho28'+str(makePkDateTime)
+            post.writer = request.session['member_id']
+            post.readId = str(request.session['member_id'])+str(makePkDateTime)
             post.save()
             return redirect('../readinglist/')
     else:
@@ -188,6 +188,7 @@ def signin(request):
         user = authenticate(username = username, password = password)
         if user is not None:
             login(request, user)
+            request.session['member_id'] = username
             return redirect('/')
         else:
             return HttpResponse('로그인 실패. 다시 시도 해보세요.')

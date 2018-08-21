@@ -3,14 +3,12 @@ from .models import Reading
 from django.contrib.auth.models import User
 from django import forms
 
+
 class PostForm(forms.ModelForm):
     
     class Meta:
         model = Reading
-        widgets = {
-            'writer': forms.TextInput({'type': 'hidden'})
-        }
-        fields = ('content', 'title', 'bookId', 'writer' )
+        fields = ('content', 'title', 'bookId' )
 
 
 class LoginForm(forms.ModelForm):
