@@ -40,7 +40,18 @@
                             <i class="fa fa-calendar-o" style="color:#FE980F;" ></i>   {{ ourbook.readingdate }}</p>
                     </div>
                 </div>
-                {% endfor %}                            
+
+
+                {% endfor %}                     
+        </div>
+        <div class="category-tab"><!--category-tab-->
+            <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li id="bookmenu1" ><a href="" onclick="f_gobookmenu(1)"  data-toggle="tab">note</a></li>
+                <li id="bookmenu2"><a href="" onclick="f_gobookmenu(2)" data-toggle="tab">NextBook</a></li>
+                <li id="bookmenu3" class="active"><a href="" onclick="f_gobookmenu(3)" data-toggle="tab">NowBook</a></li>
+            </ul>
+            </div>
         </div>
     </div>
 </section>
