@@ -1,5 +1,5 @@
 from django_summernote import fields as summer_fields
-from .models import Reading
+from .models import Reading, sentence
 from django.contrib.auth.models import User
 from django import forms
 
@@ -9,6 +9,17 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Reading
         fields = ('content', 'title', 'bookId' )
+
+class SentenceForm(forms.ModelForm):
+    
+    class Meta:
+        model = sentence
+        widgets = {
+            'bookId': forms.TextInput({'type':'hidden', 'id':'idSenForBookId'}),
+            'senContent': forms.Textarea({'rows':'5', 'class':'sentenceTextField'})
+        }
+        fields = ('senContent', 'bookId' )
+
 
 
 class LoginForm(forms.ModelForm):

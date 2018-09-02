@@ -47,3 +47,13 @@ class Reading( summer_model.Attachment ):
     bookId = models.ForeignKey(Ourbooks, '')
     def __str__(self):
         return str(self.title)+'('+str(self.readId)+')'
+
+
+class sentence( models.Model ):
+    senId = models.CharField(max_length=30, primary_key=True)
+    bookId = models.ForeignKey(Ourbooks, '')
+    senContent = models.TextField(default='')
+    senWriter = models.CharField(max_length=30)
+    created = models.CharField(max_length=30)
+    def __str__(self):
+        return str(self.bookId)+'('+str(self.senWriter)+')'+'('+str(self.senId)+')'

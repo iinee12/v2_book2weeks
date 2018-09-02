@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import PostForm, LoginForm
-from .models import Meeting, category, Ourbooks, Reading
+from .forms import PostForm, LoginForm, SentenceForm
+from .models import Meeting, category, Ourbooks, Reading, sentence
 from django.shortcuts import redirect
 import time
+import random
+
 
 # index page loading.
 def index(request):
@@ -26,8 +28,23 @@ def index(request):
 
 def nowbook(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
-    print(nowbook)
-    context = {'nowbook':nowbook}
+    senten = sentence.objects.all()
+
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = SentenceForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.senWriter = request.session['member_id']
+            post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../nowbook/')
+    else:
+        form = SentenceForm()
+    context = {'nowbook':nowbook, 'form': form, 'sentence':senten}
     return render(request, 'main/nowbook.html', context)
 
 def nextbook(request):
@@ -43,9 +60,9 @@ def bookpage(request):
     filterName = request.GET.get('kindName')
 
     if filterName is None or str(filterName)=='' or str(filterName)=='None':
-        ourbook = Ourbooks.objects.all().order_by('-readingdate')
+        ourbook = Ourbooks.objects.filter(statusflag='R').order_by('-readingdate')
     else:
-        ourbook = Ourbooks.objects.filter(category=filterName).order_by('-readingdate')
+        ourbook = Ourbooks.objects.filter(category=filterName, statusflag='R').order_by('-readingdate')
 
     PAGE_ROW_COUNT = 16
     PAGE_DISPLAY_COUNT = 5

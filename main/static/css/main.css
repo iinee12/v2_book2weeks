@@ -2733,4 +2733,21 @@ h2.title {
   width:100%;
   height:100%;
   margin-bottom: 20px;
+  float: right;
+}
+
+.sentenceTextField{
+  width:90%;
+  float: left;
+  margin-bottom: 20px;
+}
+#sentenceBtn{
+  width:10%;
+  height:110px;
+  margin-top: 0px;
+  padding: 0%;
+}
+
+.u_cbox_area{
+  margin-bottom: 15px;
 }

@@ -26,8 +26,8 @@
                 <div class="col-sm-4">
                     <div class="product-information">
                         <!--/product-information-->
-                        <h2>{{ ourbook.booktitle }}</h2>
-                        <p>ISBN : {{ ourbook.bookId }}</p>
+                        <h1>{{ ourbook.booktitle }}</h1>
+                        <p style="margin-top: 30px;">ISBN : {{ ourbook.bookId }}</p>
                         <p>
                             <b>Author:</b> {{ ourbook.author }}</p>
                         <p>
@@ -42,7 +42,7 @@
                 </div>
 
 
-                {% endfor %}                     
+                                     
         </div>
         <div id="container" style="margin-top: 20px;">
             <div id="css_tabs">
@@ -55,8 +55,34 @@
                 <label for="tab3">책소개</label>
                 <label for="tab4">노트</label>
                 <div class="tab1_content">
-                    <textarea name="comment_content" rows="5" cols="70"></textarea>
-                    <button type="submit" class="btn btn-default get">등록</button>
+                    {% for senten in sentence %}
+                    <div class="u_cbox_area">
+                        <div>
+                            <span>
+                                <i class="fa fa-user" style="color: #FE980F;"></i>
+                                <strong>   {{ senten.senWriter }}</strong>
+                            </span>
+                        </div>
+                        <div>
+                            <span>{{ senten.senContent }}</span>
+                            {% if senten.senWriter == user.username %}
+                            <a style="color: rgb(254, 15, 15);" onclick="f_sentenceDelete( '{{ senten.senId }}' )">
+                                <i class="fa fa-times"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <span style="font-style: italic;">{{ senten.created }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <form method="post" action="/nowbook/" id="sentenceForm">
+                        {% csrf_token %}
+                        {{ form.bookId }}
+                        {{ form.senContent|safe }}
+                    </form>
+                    <button type="submit" onclick="f_sentenceRegister( '{{ ourbook.bookId }}' )"
+                    id="sentenceBtn" class="btn btn-default get">등록</button>
                 </div>
                 <div class="tab2_content">Tab2 내용
                     <br />근 인력거꾼의 그 라디오로 한다느니보다 바이며, 왜 2위는 충실하였다. 말라서 듯이 높게 또 가지고 것이다. 궂은 같은 끝나가고 소리가 김첨지는 쳐보았건만, 액수에 후려갈겼다. 그 속에서 하고 과한데.</div>
@@ -66,6 +92,7 @@
                     <br />사십 듯이 만들 황급하였다. 말조차 벌던 방학을 있었다. 그러자, 날리고 젠장맞을 없었다. 보배를 수 조금 남은 없네, 있다. 그는 은전이 원 수 띄었다. 아씨, 하고 천하를 그들의 모든 병자에 뿐이다.</div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </section>
 
@@ -78,6 +105,14 @@
         }else{
             location.href="/nowbook/";
         }
+    }
+    function f_sentenceRegister(bookId){
+        document.getElementById('idSenForBookId').value = bookId;
+        document.getElementById('sentenceForm').submit();
+        return false;
+    }
+    function f_sentenceDelete(senId){
+        confirm("문장을 삭제하시겠습니까?");
     }
 </script>
 
