@@ -26,7 +26,7 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-def nowbook(request):
+def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
     senten = sentence.objects.all()
 

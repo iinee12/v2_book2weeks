@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('book/', views.bookpage),
-    path('nowbook/', views.nowbook),
+    path('nowbook/', views.nowbookCall),
     path('nextbook/', views.nextbook),
     path('bookDetail/', views.bookDetail),
     path('readinglist/', views.readinglist),
