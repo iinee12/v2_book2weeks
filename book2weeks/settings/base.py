@@ -130,5 +130,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 SUMMERNOTE_CONFIG = {
     'width': '100%',
-    'height': '600px'
+    'height': '600px',
+    'attachment_require_authentication': True
 }
