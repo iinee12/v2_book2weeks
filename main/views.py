@@ -13,7 +13,7 @@ import random
 # index page loading.
 def index(request):
     cateName = category.objects.all().order_by('categoryCode')
-    ourbook = Ourbooks.objects.all().order_by('-readingdate')[:12]
+    ourbook = Ourbooks.objects.filter(statusflag='R').order_by('-readingdate')[:12]
     for book in ourbook:
         book.imgindex = book.bookId[-3:]
     meeting = Meeting.objects.all().order_by('-meetingdate')[:3]
@@ -28,7 +28,7 @@ def index(request):
 
 def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
-    senten = sentence.objects.all()
+    senten = sentence.objects.filter(bookId=nowbook[0].bookId)
 
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
@@ -59,7 +59,7 @@ def bookpage(request):
     
     filterName = request.GET.get('kindName')
 
-    if filterName is None or str(filterName)=='' or str(filterName)=='None':
+    if filterName is None or str(filterName) =='' or str(filterName) =='None':
         ourbook = Ourbooks.objects.filter(statusflag='R').order_by('-readingdate')
     else:
         ourbook = Ourbooks.objects.filter(category=filterName, statusflag='R').order_by('-readingdate')
