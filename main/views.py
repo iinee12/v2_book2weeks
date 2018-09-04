@@ -24,6 +24,10 @@ def index(request):
     context = {'meeting':meeting, 'category':cateName, 'ourbooks':ourbook}
 
     return render(request, 'main/index.html', context)
+def nowbooksendelete(request):
+    senten = sentence.objects.get(senId=request.GET.get('senId'))
+    senten.delete()
+    return redirect("/nowbook/")
 
 
 def nowbookCall(request):

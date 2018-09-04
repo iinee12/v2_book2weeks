@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.index),
     path('book/', views.bookpage),
     path('nowbook/', views.nowbookCall),
+    path('nowbooksendelete/', views.nowbooksendelete),
     path('nextbook/', views.nextbook),
     path('bookDetail/', views.bookDetail),
     path('readinglist/', views.readinglist),

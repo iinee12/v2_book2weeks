@@ -53,7 +53,7 @@
                 <label for="tab1">문장들</label>
                 <label for="tab2">평가</label>
                 <label for="tab3">책소개</label>
-                <label for="tab4">노트</label>
+                <label for="tab4">발제문</label>
                 <div class="tab1_content">
                     {% for senten in sentence %}
                     <div class="u_cbox_area">
@@ -86,10 +86,15 @@
                 </div>
                 <div class="tab2_content">Tab2 내용
                     <br />근 인력거꾼의 그 라디오로 한다느니보다 바이며, 왜 2위는 충실하였다. 말라서 듯이 높게 또 가지고 것이다. 궂은 같은 끝나가고 소리가 김첨지는 쳐보았건만, 액수에 후려갈겼다. 그 속에서 하고 과한데.</div>
-                <div class="tab3_content">Tab3 내용
-                    <br />사십 듯이 만들 황급하였다. 말조차 벌던 방학을 있었다. 그러자, 날리고 젠장맞을 없었다. 보배를 수 조금 남은 없네, 있다. 그는 은전이 원 수 띄었다. 아씨, 하고 천하를 그들의 모든 병자에 뿐이다.</div>
-                    <div class="tab4_content">Tab3 내용
-                    <br />사십 듯이 만들 황급하였다. 말조차 벌던 방학을 있었다. 그러자, 날리고 젠장맞을 없었다. 보배를 수 조금 남은 없네, 있다. 그는 은전이 원 수 띄었다. 아씨, 하고 천하를 그들의 모든 병자에 뿐이다.</div>
+                <div class="tab3_content">
+                    <div class="tab-pane fade active in" id="reviews" >
+                        <div class="col-sm-12" style="margin-top: 30px;">
+                            <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
+                            <p>[출처 : YES24 제공]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab4_content"></div>
             </div>
         </div>
         {% endfor %}
@@ -112,7 +117,11 @@
         return false;
     }
     function f_sentenceDelete(senId){
-        confirm("문장을 삭제하시겠습니까?");
+        alert(senId);
+        if(confirm("문장을 삭제하시겠습니까?")){
+            location.href="/nowbooksendelete?senId="+senId;
+        }
+
     }
 </script>
 
