@@ -57,3 +57,14 @@ class sentence( models.Model ):
     created = models.CharField(max_length=30)
     def __str__(self):
         return str(self.bookId)+'('+str(self.senWriter)+')'+'('+str(self.senId)+')'
+
+
+class starScore( models.Model ):
+    scoreId = models.CharField(max_length=30, primary_key=True)
+    bookId = models.ForeignKey(Ourbooks, '')
+    scoreComment = models.TextField(default='')
+    scoreStar = models.CharField(max_length=30)
+    scoreWriter = models.CharField(max_length=30)
+    created = models.CharField(max_length=30)
+    def __str__(self):
+        return str(self.bookId)+'('+str(self.scoreWriter)+')'+'('+str(self.scoreId)+')'

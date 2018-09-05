@@ -33,11 +33,13 @@ def nowbooksendelete(request):
 def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
     senten = sentence.objects.filter(bookId=nowbook[0].bookId)
+    star = starScore.objects.filter(bookId=nowbook[0].bookId)
 
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
+
         form = SentenceForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
@@ -46,8 +48,10 @@ def nowbookCall(request):
             post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
             post.save()
             return redirect('../nowbook/')
+
     else:
         form = SentenceForm()
+        starForm = SoreForm()
     context = {'nowbook':nowbook, 'form': form, 'sentence':senten}
     return render(request, 'main/nowbook.html', context)
 

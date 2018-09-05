@@ -84,8 +84,23 @@
                     <button type="submit" onclick="f_sentenceRegister( '{{ ourbook.bookId }}' )"
                     id="sentenceBtn" class="btn btn-default get">등록</button>
                 </div>
-                <div class="tab2_content">Tab2 내용
-                    <br />근 인력거꾼의 그 라디오로 한다느니보다 바이며, 왜 2위는 충실하였다. 말라서 듯이 높게 또 가지고 것이다. 궂은 같은 끝나가고 소리가 김첨지는 쳐보았건만, 액수에 후려갈겼다. 그 속에서 하고 과한데.</div>
+                <div class="tab2_content">
+                        <p class="star_rating">
+                            <label>별점 : </label>
+                                <a href="#" id="star1" onclick="f_starScore('1')" >★</a>
+                                <a href="#" id="star2" onclick="f_starScore('2')">★</a>
+                                <a href="#" id="star3" onclick="f_starScore('3')">★</a>
+                                <a href="#" id="star4" onclick="f_starScore('4')">★</a>
+                                <a href="#" id="star5" onclick="f_starScore('5')">★</a>
+                        </p>
+                    <form method="post" action="/nowbook/" id="sentenceForm">
+                        {% csrf_token %}
+                        {{ form.bookId }}
+                        {{ form.senContent|safe }}
+                    </form>
+                    <button type="submit" onclick="f_scoreRegist( '{{ ourbook.bookId }}' )"
+                    id="sentenceBtn" class="btn btn-default get">평가</button>
+                </div>
                 <div class="tab3_content">
                     <div class="tab-pane fade active in" id="reviews" >
                         <div class="col-sm-12" style="margin-top: 30px;">
@@ -123,6 +138,26 @@
         }
 
     }
+    function f_starScore(score){
+        $(".star_rating a").removeClass("on");
+        for(var i=1; i<=score; i++){
+            $("#star"+i).addClass("on")
+        }
+    }
+    function f_scoreRegist(bookId){
+        var scoreStar = document.getElementsByClassName('on').length;
+
+        if(confirm(scoreStar+"점으로 평가를 등록하시겠습니까?")){
+
+            document.getElementById('idSenForBookId').value = bookId;
+            document.getElementById('sentenceForm').submit();
+            return false;
+        }
+
+    }
+
+
+
 </script>
 
 {% endblock %}
