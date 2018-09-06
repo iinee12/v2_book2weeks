@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import PostForm, LoginForm, SentenceForm
-from .models import Meeting, category, Ourbooks, Reading, sentence
+from .forms import PostForm, LoginForm, SentenceForm, SoreForm
+from .models import Meeting, category, Ourbooks, Reading, sentence, starScore
 from django.shortcuts import redirect
 import time
 import random
@@ -39,20 +39,20 @@ def nowbookCall(request):
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
-
-        form = SentenceForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.created = nowDateTime
-            post.senWriter = request.session['member_id']
-            post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
-            post.save()
-            return redirect('../nowbook/')
-
+        if request.GET.get("registType") == "sentence":
+            form = SentenceForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.created = nowDateTime
+                post.senWriter = request.session['member_id']
+                post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+                post.save()
+                return redirect('../nowbook/')
+        
     else:
         form = SentenceForm()
         starForm = SoreForm()
-    context = {'nowbook':nowbook, 'form': form, 'sentence':senten}
+    context = {'nowbook':nowbook, 'form': form, 'sentence':senten, 'starForm':starForm}
     return render(request, 'main/nowbook.html', context)
 
 def nextbook(request):

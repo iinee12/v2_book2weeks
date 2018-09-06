@@ -95,8 +95,9 @@
                         </p>
                     <form method="post" action="/nowbook/" id="sentenceForm">
                         {% csrf_token %}
-                        {{ form.bookId }}
-                        {{ form.senContent|safe }}
+                        {{ starForm.bookId }}
+                        {{ starForm.scoreStar }}
+                        {{ starForm.scoreComment|safe }}
                     </form>
                     <button type="submit" onclick="f_scoreRegist( '{{ ourbook.bookId }}' )"
                     id="sentenceBtn" class="btn btn-default get">평가</button>
