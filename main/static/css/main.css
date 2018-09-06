@@ -2752,3 +2752,14 @@ h2.title {
   margin-bottom: 13px;
 
 }
+.scoreTextField{
+  width:60%;
+  float: left;
+  margin-bottom: 20px;
+}
+#scoreBtn{
+  width:10%; 
+  height:70px;
+  margin-top: 0px;
+  padding: 0%;
+}

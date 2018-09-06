@@ -29,6 +29,21 @@ def nowbooksendelete(request):
     senten.delete()
     return redirect("/nowbook/")
 
+def scoreregist(request):
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = SoreForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.scoreWriter = request.session['member_id']
+            post.scoreId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../nowbook/')
+    else:
+        return redirect("/nowbook/")
 
 def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
@@ -39,20 +54,19 @@ def nowbookCall(request):
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
-        if request.GET.get("registType") == "sentence":
-            form = SentenceForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.created = nowDateTime
-                post.senWriter = request.session['member_id']
-                post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
-                post.save()
-                return redirect('../nowbook/')
+        form = SentenceForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.senWriter = request.session['member_id']
+            post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../nowbook/')
         
     else:
         form = SentenceForm()
         starForm = SoreForm()
-    context = {'nowbook':nowbook, 'form': form, 'sentence':senten, 'starForm':starForm}
+    context = {'nowbook':nowbook, 'form': form, 'star':star, 'sentence':senten, 'starForm':starForm}
     return render(request, 'main/nowbook.html', context)
 
 def nextbook(request):

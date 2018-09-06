@@ -85,22 +85,48 @@
                     id="sentenceBtn" class="btn btn-default get">등록</button>
                 </div>
                 <div class="tab2_content">
-                        <p class="star_rating">
-                            <label>별점 : </label>
+                        {% for onestar in star %}
+                        
+                        <div class="u_cbox_area">
+                            <div style="float: left;">
+                                <span>
+                                    <i class="fa fa-user" style="color: #FE980F;"></i>
+                                    <strong>   {{ onestar.scoreWriter }}</strong>
+                                </span>
+                            </div>
+                            <div>
+                                    <p class="star_rating" style="float: left;margin-right: 15px;margin-left: 20px;">
+                                        {% for i in "x"|rjust:onestar.scoreStar %}
+                                            <span style="color: #FE980F;" >★</span>
+                                        {% endfor %}<span>{{onestar.scoreStar}}점</span>
+                                    </p>
+                                    <span>{{onestar.scoreComment}}</span>
+                                    {% if onestar.scoreWriter == user.username %}
+                                    <a style="color: rgb(254, 15, 15);" onclick="f_sentenceDelete( '{{ senten.senId }}' )">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                        <p class="star_rating" style="float: left; margin-top: 15px;margin-right: 15px;">
+                            <label>별점(1~5점) : </label>
                                 <a href="#" id="star1" onclick="f_starScore('1')" >★</a>
                                 <a href="#" id="star2" onclick="f_starScore('2')">★</a>
                                 <a href="#" id="star3" onclick="f_starScore('3')">★</a>
                                 <a href="#" id="star4" onclick="f_starScore('4')">★</a>
                                 <a href="#" id="star5" onclick="f_starScore('5')">★</a>
                         </p>
-                    <form method="post" action="/nowbook/" id="sentenceForm">
+                    <form method="post" action="/scoreregist/" id="scoreregist">
                         {% csrf_token %}
                         {{ starForm.bookId }}
                         {{ starForm.scoreStar }}
                         {{ starForm.scoreComment|safe }}
                     </form>
                     <button type="submit" onclick="f_scoreRegist( '{{ ourbook.bookId }}' )"
-                    id="sentenceBtn" class="btn btn-default get">평가</button>
+                    id="scoreBtn" class="btn btn-default get">평가</button>
                 </div>
                 <div class="tab3_content">
                     <div class="tab-pane fade active in" id="reviews" >
@@ -147,14 +173,16 @@
     }
     function f_scoreRegist(bookId){
         var scoreStar = document.getElementsByClassName('on').length;
-
-        if(confirm(scoreStar+"점으로 평가를 등록하시겠습니까?")){
-
-            document.getElementById('idSenForBookId').value = bookId;
-            document.getElementById('sentenceForm').submit();
-            return false;
+        if(scoreStar==0){
+            alert("별을 클릭하여 점수를 입력해주세요!");
+        }else{
+            if(confirm(scoreStar+"점으로 평가를 등록하시겠습니까?")){
+                document.getElementById('idScoreForBookId').value = bookId;
+                document.getElementById('idScoreForScoreStar').value = scoreStar;
+                document.getElementById('scoreregist').submit();
+                return false;
+            }
         }
-
     }
 
 

@@ -18,7 +18,7 @@ class SentenceForm(forms.ModelForm):
             'bookId': forms.TextInput({'type':'hidden', 'id':'idSenForBookId'}),
             'senContent': forms.Textarea({'rows':'5', 'class':'sentenceTextField'})
         }
-        fields = ('senContent', 'bookId' )
+        fields = ('senContent', 'bookId')
 
 class SoreForm(forms.ModelForm):
     

@@ -11,6 +11,7 @@ urlpatterns = [
     path('nowbook/', views.nowbookCall),
     path('nowbooksendelete/', views.nowbooksendelete),
     path('nextbook/', views.nextbook),
+    path('scoreregist/', views.scoreregist),
     path('bookDetail/', views.bookDetail),
     path('readinglist/', views.readinglist),
     path('readingwrite/', views.readingWirte),
