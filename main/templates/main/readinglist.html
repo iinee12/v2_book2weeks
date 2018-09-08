@@ -23,10 +23,10 @@
 						{% for read in reading %}
 						<tr>
 							<td class="cart_product">
-								<a href=""><img style="width: 30px; height: 30px;" 
+								<img style="width: 30px; height: 30px;" 
 									src="/static/images/content/member/{{read.writer}}.jpg" alt=""></a>
 							</td>
-							<td class="cart_description">
+							<td class="cart_description" width="700" style="word-break:break-all">
 								<h4><a href="/readingdetail?readId={{ read.readId }}">{{ read.title }}</a></h4>
 								<p>Book : {{ read.bookId.booktitle }}</p>
 							</td>

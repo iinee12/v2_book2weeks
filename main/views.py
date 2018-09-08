@@ -34,6 +34,16 @@ def nowbookscoredelete(request):
     star.delete()
     return redirect("/nowbook/")
 
+def nowbooksendeletefordetail(request):
+    senten = sentence.objects.get(senId=request.GET.get('senId'))
+    senten.delete()
+    return redirect('../bookDetail?bookId='+str(request.GET.get('bookId')))
+
+def nowbookscoredeletefordetail(request):
+    star = starScore.objects.get(scoreId=request.GET.get('scoreId'))
+    star.delete()
+    return redirect('../bookDetail?bookId='+str(request.GET.get('bookId')))
+
 def scoreregist(request):
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
@@ -49,6 +59,23 @@ def scoreregist(request):
             return redirect('../nowbook/')
     else:
         return redirect("/nowbook/")
+
+def scoreregistfordetail(request):
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = SoreForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.scoreWriter = request.session['member_id']
+            post.scoreId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../bookDetail?bookId='+str(request.POST.get('bookId')))
+    else:
+        return redirect("/book/")
+
 
 def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
@@ -139,16 +166,42 @@ def bookpage(request):
 
 # bookDetail page loading.
 def bookDetail(request):
-    cateName = category.objects.all().order_by('categoryCode')    
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = SentenceForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.senWriter = request.session['member_id']
+            post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../bookDetail?bookId='+str(request.POST.get('bookId')))
+        
+    else:
+        form = SentenceForm()
+        starForm = SoreForm()
+        filterName = request.GET.get('bookId')
+        ourbook = Ourbooks.objects.filter(bookId=filterName)
     
-    filterName = request.GET.get('bookId')
-    ourbook = Ourbooks.objects.filter(bookId=filterName)
-    
-    for book in ourbook:
-        book.imgindex = book.bookId[-3:]
+        senten = sentence.objects.filter(bookId=ourbook[0].bookId)
+        star = starScore.objects.filter(bookId=ourbook[0].bookId)
 
-    context = {'category':cateName, 'ourbook':ourbook}
-    return render(request, 'main/bookdetail.html', context)
+        indiaverStar=0
+        averStar = 0
+        for starindi in star:
+            indiaverStar = indiaverStar + int(starindi.scoreStar);
+        if indiaverStar != 0:
+            averStar = indiaverStar / len(star)
+
+        for book in ourbook:
+            book.imgindex = book.bookId[-3:]
+
+        context = {'ourbook':ourbook, 'form': form, 'star':star, 'sentence':senten, 'starForm':starForm, 'averStar':averStar}
+        return render(request, 'main/bookdetail.html', context)
+
+
 
 # readinglist page loading.
 def readinglist(request):
@@ -165,6 +218,7 @@ def readingdetail(request):
 
 # readingwrite page loading.
 def readingWirte(request):
+
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
@@ -177,11 +231,20 @@ def readingWirte(request):
             post.writer = request.session['member_id']
             post.readId = str(request.session['member_id'])+str(makePkDateTime)
             post.save()
-            return redirect('../readinglist/')
+            return redirect('../readingdetail?readId='+post.readId)
     else:
-        form = PostForm()
+        form = PostForm(initial={'content': 'Hi there!'})
+        
     context = {'form': form}
     return render(request, 'main/readingwrite.html', context)
+
+def readingChange(request):
+    readId = request.GET.get('readId')
+    reading = Reading.objects.select_related('bookId').filter(readId=readId)
+    form = PostForm(initial={'content': reading[0].content, 'title':reading[0].title,  'bookId':reading[0].bookId})
+    context = {'form': form}
+    return render(request, 'main/readingwrite.html', context)
+
 
 def meetingmain(request):
     meeting = Meeting.objects.all().order_by('-meetingdate')

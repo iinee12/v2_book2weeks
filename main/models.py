@@ -41,7 +41,7 @@ class category( models.Model ):
 
 class Reading( summer_model.Attachment ):
     readId = models.CharField(max_length=30, primary_key=True, default='1')
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=50)
     content = summer_fields.SummernoteTextField(default='')
     writer = models.CharField(max_length=30)
     created = models.CharField(max_length=30)

@@ -3,6 +3,15 @@
 
 <section>
     <div class="container">
+            <div class="category-tab"><!--category-tab-->
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li id="bookmenu1" class="active"><a href="" onclick="f_gobookmenu(1)"  data-toggle="tab">읽은책</a></li>
+                        <li id="bookmenu3"><a href="" onclick="f_gobookmenu(3)" data-toggle="tab">읽는책</a></li>
+                        <li id="bookmenu2"><a href="" onclick="f_gobookmenu(2)" data-toggle="tab">읽을책</a></li>
+                    </ul>
+                </div>
+            </div>
         <div class="row">
             <div class="product-details">
                 {% for ourbook in ourbook %}
@@ -18,12 +27,8 @@
                         <h2>{{ ourbook.booktitle }}</h2>
                         <p>ISBN : {{ ourbook.bookId }}</p>
                         <p class="star_rating">
-                            <label>Rating : </label>
-                            <a href="#" class="on">★</a>
-                            <a href="#" class="on">★</a>
-                            <a href="#" class="on">★</a>
-                            <a href="#">★</a>
-                            <a href="#">★</a>
+                            <a href="#" class="on">★</a><label>Rating : </label>
+                            <span>평균 {{averStar}}점</span>
                         </p>
                         <p>
                             <b>Author:</b> {{ ourbook.author }}</p>
@@ -38,12 +43,110 @@
                     </div>
                     <!--/product-information-->
                 </div>
-                <div class="tab-pane fade active in" id="reviews" >
-                    <div class="col-sm-12" style="margin-top: 30px;">
-                        <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
-                        <p>[출처 : YES24 제공]</p>
+                <div id="container" style="margin-top: 20px;">
+                        <div id="css_tabs">
+                            <input id="tab1" type="radio" name="tab" checked="checked" />
+                            <input id="tab2" type="radio" name="tab" />
+                            <input id="tab3" type="radio" name="tab" />
+                            <input id="tab4" type="radio" name="tab" />
+                            <label for="tab1">책소개</label>
+                            <label for="tab2">평가</label>
+                            <label for="tab3">문장들</label>
+                            <label for="tab4">발제문</label>
+                            <div class="tab1_content">
+                                    <div class="tab-pane fade active in" id="reviews" >
+                                        <div class="col-sm-12" style="margin-top: 30px;">
+                                            <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
+                                            <p>[출처 : YES24 제공]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="tab2_content">
+                                    {% for onestar in star %}
+                                    
+                                    <div class="u_cbox_area">
+                                        <div style="float: left;">
+                                            <span>
+                                                <i class="fa fa-user" style="color: #FE980F;"></i>
+                                                <strong>   {{ onestar.scoreWriter }}</strong>
+                                            </span>
+                                        </div>
+                                        <div>
+                                                <p class="star_rating" style="float: left;margin-right: 15px;margin-left: 20px;">
+                                                    {% for i in "x"|rjust:onestar.scoreStar %}
+                                                        <span style="color: #FE980F;" >★</span>
+                                                    {% endfor %}<span>{{onestar.scoreStar}}점</span>
+                                                </p>
+                                                <span>{{onestar.scoreComment}}</span>
+                                                {% if onestar.scoreWriter == user.username %}
+                                                <a style="color: rgb(254, 15, 15);" onclick="f_scoreDelete( '{{ onestar.scoreId }}', '{{ ourbook.bookId }}' )">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                                
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                    <input type="hidden" class="scoreWriterValue" value="{{onestar.scoreWriter}}"/>
+                                    {% endfor %}
+            
+            
+                                    <p class="star_rating" style="float: left; margin-top: 15px;margin-right: 15px;">
+                                        <label>별점(1~5점) : </label>
+                                            <a href="#" id="star1" onclick="f_starScore('1')" >★</a>
+                                            <a href="#" id="star2" onclick="f_starScore('2')">★</a>
+                                            <a href="#" id="star3" onclick="f_starScore('3')">★</a>
+                                            <a href="#" id="star4" onclick="f_starScore('4')">★</a>
+                                            <a href="#" id="star5" onclick="f_starScore('5')">★</a>
+                                    </p>
+                                <form method="post" action="/scoreregistfordetail/" id="scoreregist">
+                                    {% csrf_token %}
+                                    {{ starForm.bookId }}
+                                    {{ starForm.scoreStar }}
+                                    {{ starForm.scoreComment|safe }}
+                                </form>
+                                <button type="submit" onclick="f_scoreRegist( '{{ ourbook.bookId }}' )"
+                                id="scoreBtn" class="btn btn-default get">평가</button>
+                            </div>
+                            <div class="tab3_content">
+                                    {% for senten in sentence %}
+                                    <div class="u_cbox_area">
+                                        <div>
+                                            <span>
+                                                <i class="fa fa-user" style="color: #FE980F;"></i>
+                                                <strong>   {{ senten.senWriter }}</strong>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span>{{ senten.senContent }}</span>
+                                            {% if senten.senWriter == user.username %}
+                                            <a style="color: rgb(254, 15, 15);" onclick="f_sentenceDelete( '{{ senten.senId }}', '{{ ourbook.bookId }}' )">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <span style="font-style: italic;">{{ senten.created }}</span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <form method="post" action="../bookDetail/" id="sentenceForm">
+                                        {% csrf_token %}
+                                        {{ form.bookId }}
+                                        {{ form.senContent|safe }}
+                                    </form>
+                                    <button type="submit" onclick="f_sentenceRegister( '{{ ourbook.bookId }}' )"
+                                    id="sentenceBtn" class="btn btn-default get">등록</button>
+                                </div>
+
+                            <div class="tab4_content">
+                                <div class="tab-pane fade active in" id="reviews" >
+                                    <div class="col-sm-12" style="margin-top: 30px;">
+                                        <p style="font-size:15px;line-height:28px">{{ ourbook.discuss|linebreaksbr}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
             </div>
             {% endfor %}
             <!--/product-details-->
@@ -51,5 +154,58 @@
     </div>
     </div>
 </section>
+<script>
+    function f_gobookmenu(menuid){
+        if(menuid == 1){
+            location.href="/book/";
+        }else if(menuid == 2){
+            location.href="/nextbook/";
+        }else{
+            location.href="/nowbook/";
+        }
+    }
+    function f_sentenceRegister(bookId){
+        document.getElementById('idSenForBookId').value = bookId;
+        document.getElementById('sentenceForm').submit();
+        return false;
+    }
+    function f_sentenceDelete(senId, bookId){
+        if(confirm("문장을 삭제하시겠습니까?")){
+            location.href="/nowbooksendeletefordetail?senId="+senId+"&bookId="+bookId;
+        }
 
+    }
+    function f_starScore(score){
+        $(".star_rating a").removeClass("on");
+        for(var i=1; i<=score; i++){
+            $("#star"+i).addClass("on")
+        }
+    }
+    function f_scoreRegist(bookId){
+        var scoreLength = document.getElementsByClassName('scoreWriterValue').length;
+        var user = '{{user.username}}';
+        for(var i=0; i<scoreLength;i++){
+            if(user==document.getElementsByClassName('scoreWriterValue')[i].value){
+                alert("이미 별점을 등록했습니다.");
+                return false;
+            }
+        }
+        var scoreStar = document.getElementsByClassName('on').length;
+        if(scoreStar==0){
+            alert("별을 클릭하여 점수를 입력해주세요!");
+        }else{
+            if(confirm(scoreStar+"점으로 평가를 등록하시겠습니까?")){
+                document.getElementById('idScoreForBookId').value = bookId;
+                document.getElementById('idScoreForScoreStar').value = scoreStar;
+                document.getElementById('scoreregist').submit();
+                return false;
+            }
+        }
+    }
+    function f_scoreDelete(scoreId, bookId){
+        if(confirm("별점을 삭제하시겠습니까?")){
+            location.href="/nowbookscoredeletefordetail?scoreId="+scoreId+"&bookId="+bookId;
+        }
+    }
+    </script>
 {% endblock %}
