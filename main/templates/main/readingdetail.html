@@ -13,8 +13,11 @@
                     {{ read.content|safe }}
                     
                     <br/>
+                    {% if read.writer == user.username %}
                     <button type="submit" class="btn btn-default get" onclick="f_readingchange('{{read.readId}}')"
                     style="margin-bottom: 15px;float:right;">수정</button>
+                    {% endif %}
+
                     <button type="button" onclick="location=/readinglist/" class="btn btn-default get"
                     style="margin-bottom: 15px;margin-right: 13px; float:right;">목록</button>
                     {%endfor%}
