@@ -233,7 +233,7 @@ def readingWirte(request):
             post.save()
             return redirect('../readingdetail?readId='+post.readId)
     else:
-        form = PostForm(initial={'content': 'Hi there!'})
+        form = PostForm()
         
     context = {'form': form}
     return render(request, 'main/readingwrite.html', context)
