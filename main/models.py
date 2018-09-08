@@ -15,6 +15,7 @@ class Ourbooks( models.Model ):
     statusflag = models.CharField(max_length=5)
     imgindex = models.CharField(max_length=5,default='')
     description = models.TextField(default='')
+    discuss = models.TextField(default='')
     def __str__(self):
         return self.booktitle
 

@@ -105,6 +105,7 @@
                                     <a style="color: rgb(254, 15, 15);" onclick="f_scoreDelete( '{{ onestar.scoreId }}' )">
                                         <i class="fa fa-times"></i>
                                     </a>
+                                    
                                     {% endif %}
                             </div>
                         </div>
@@ -137,7 +138,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab4_content"></div>
+                <div class="tab4_content">
+                    <div class="tab-pane fade active in" id="reviews" >
+                        <div class="col-sm-12" style="margin-top: 30px;">
+                            <p style="font-size:15px;line-height:28px">{{ ourbook.discuss|linebreaksbr}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}
