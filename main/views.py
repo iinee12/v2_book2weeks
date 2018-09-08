@@ -190,22 +190,25 @@ def bookDetail(request):
 
         indiaverStar=0
         averStar = 0
+        totalCnt = len(star)
         for starindi in star:
             indiaverStar = indiaverStar + int(starindi.scoreStar);
         if indiaverStar != 0:
-            averStar = indiaverStar / len(star)
+            averStar = indiaverStar / totalCnt
+
 
         for book in ourbook:
             book.imgindex = book.bookId[-3:]
 
-        context = {'ourbook':ourbook, 'form': form, 'star':star, 'sentence':senten, 'starForm':starForm, 'averStar':averStar}
+        context = {'ourbook':ourbook, 'form': form, 'star':star, 'sentence':senten, 
+        'starForm':starForm, 'averStar':averStar, 'totalCnt':totalCnt}
         return render(request, 'main/bookdetail.html', context)
 
 
 
 # readinglist page loading.
 def readinglist(request):
-    reading = Reading.objects.all()
+    reading = Reading.objects.all().order_by('-created')
     context = {'reading':reading}
     return render(request, 'main/readinglist.html', context)
 
