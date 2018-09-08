@@ -102,12 +102,13 @@
                                     </p>
                                     <span>{{onestar.scoreComment}}</span>
                                     {% if onestar.scoreWriter == user.username %}
-                                    <a style="color: rgb(254, 15, 15);" onclick="f_sentenceDelete( '{{ senten.senId }}' )">
+                                    <a style="color: rgb(254, 15, 15);" onclick="f_scoreDelete( '{{ onestar.scoreId }}' )">
                                         <i class="fa fa-times"></i>
                                     </a>
                                     {% endif %}
                             </div>
                         </div>
+                        <input type="hidden" class="scoreWriterValue" value="{{onestar.scoreWriter}}"/>
                         {% endfor %}
 
 
@@ -159,7 +160,6 @@
         return false;
     }
     function f_sentenceDelete(senId){
-        alert(senId);
         if(confirm("문장을 삭제하시겠습니까?")){
             location.href="/nowbooksendelete?senId="+senId;
         }
@@ -172,6 +172,16 @@
         }
     }
     function f_scoreRegist(bookId){
+        var scoreLength = document.getElementsByClassName('scoreWriterValue').length;
+        var user = '{{user.username}}';
+        for(var i=0; i<scoreLength;i++){
+            if(user==document.getElementsByClassName('scoreWriterValue')[i].value){
+                alert("이미 별점을 등록했습니다.");
+                return false;
+            }
+        }
+        var score = document.getElementsByClassName('scoreWriterValue')[0].value;
+        
         var scoreStar = document.getElementsByClassName('on').length;
         if(scoreStar==0){
             alert("별을 클릭하여 점수를 입력해주세요!");
@@ -184,7 +194,12 @@
             }
         }
     }
+    function f_scoreDelete(scoreId){
+        if(confirm("별점을 삭제하시겠습니까?")){
+            location.href="/nowbookscoredelete?scoreId="+scoreId;
+        }
 
+    }
 
 
 </script>

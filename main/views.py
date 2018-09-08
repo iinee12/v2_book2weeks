@@ -29,6 +29,11 @@ def nowbooksendelete(request):
     senten.delete()
     return redirect("/nowbook/")
 
+def nowbookscoredelete(request):
+    star = starScore.objects.get(scoreId=request.GET.get('scoreId'))
+    star.delete()
+    return redirect("/nowbook/")
+
 def scoreregist(request):
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
