@@ -2763,3 +2763,37 @@ h2.title {
   margin-top: 0px;
   padding: 0%;
 }
+
+.searchBar{
+  text-align: center;
+  margin-top: 5%;
+}
+
+.green_window {
+	display: inline-block;
+	width: 70%; height: 40px;
+	border: 3px solid #FE980F;
+	background: white;
+}
+.input_text {
+	width: 80%; height: 30px;
+	margin: 3px 0 0 0;
+	border: 0;
+	line-height: 21px;
+	font-weight: bold;
+	font-size: 16px;
+	outline: none;
+}
+.sch_smit {
+	width: 54px; height: 40px;
+	margin: 0; border: 0;
+	vertical-align: top;
+	background: #FE980F;
+	color: white;
+	font-weight: bold;
+	border-radius: 1px;
+	cursor: pointer;
+}
+.sch_smit:hover {
+	background: #FE980F;
+}

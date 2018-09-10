@@ -14,6 +14,7 @@ urlpatterns = [
     path('nowbooksendeletefordetail/', views.nowbooksendeletefordetail),
     path('nowbookscoredeletefordetail/', views.nowbookscoredeletefordetail),
     path('nextbook/', views.nextbook),
+    path('nextbooksearch/', views.nextbooksearch),
     path('scoreregistfordetail/', views.scoreregistfordetail),
     path('scoreregist/', views.scoreregist),
     path('bookDetail/', views.bookDetail),

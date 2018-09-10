@@ -306,11 +306,14 @@ def signin(request):
         form = LoginForm()
         return render(request, 'main/login.html', {'form': form})
 
-
-
-
 def meetingdetail(request):
     filterName = request.GET.get('meetingid')
     meeting = Meeting.objects.filter(meetingId=filterName)
     context = {'meeting':meeting}
+    return render(request, 'main/meetingdetail.html', context)
+
+
+def nextbooksearch(request):
+    searchKeyWord = request.POST.get('searchKey')
+
     return render(request, 'main/meetingdetail.html', context)
