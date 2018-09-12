@@ -8,7 +8,10 @@ from .models import Meeting, category, Ourbooks, Reading, sentence, starScore
 from django.shortcuts import redirect
 import time
 import random
-
+import urllib.request
+import os
+import sys
+import json
 
 # index page loading.
 def index(request):
@@ -314,6 +317,36 @@ def meetingdetail(request):
 
 
 def nextbooksearch(request):
-    searchKeyWord = request.POST.get('searchKey')
+    searchKeyWord = request.GET.get('searchKey')
+    client_id = "4oOHm4oAQ2oUFLEfXyKp"
+    client_secret = "HKkulo_dgv"
+    encText = urllib.parse.quote(str(searchKeyWord))
+    url = "https://openapi.naver.com/v1/search/book?query=" + encText+"&sort=count"
+    request_forNaver = urllib.request.Request(url)
+    request_forNaver.add_header("X-Naver-Client-Id",client_id)
+    request_forNaver.add_header("X-Naver-Client-Secret",client_secret)
+    response = urllib.request.urlopen(request_forNaver)
+    rescode = response.getcode()
+    searchBook = []
+    if(rescode==200):
+        response_body = response.read()
+        json_rt = response_body.decode('utf-8')
+        py_rt = json.loads(json_rt)
 
-    return render(request, 'main/meetingdetail.html', context)
+        print(py_rt)
+        for i in range(0, len(py_rt['items'])):
+            dic = {'isbn': py_rt['items'][i]['isbn'].split(' ')[1],
+             'imgIndex': py_rt['items'][i]['isbn'].split(' ')[1][-3:],
+             'imgAlt':py_rt['items'][i]['image']}
+            searchBook.append(dic)
+    else:
+        print("Error Code:" + rescode)
+
+    nosearch = ''    
+    context = {'searchBook':searchBook}
+    if (len(searchBook) == 0) :
+        nosearch = ''
+    else:
+        nosearch = 'exist'
+
+    return render(request, 'main/nextbook.html', {'searchBook':searchBook, 'nosearch':nosearch})

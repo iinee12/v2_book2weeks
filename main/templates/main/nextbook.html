@@ -58,14 +58,34 @@
 
             <div class="category-tab">
                 <div class="searchBar">
-                    <form id="nextbooksearch" action="/nextbooksearch/">
-                        <span class='green_window'>
-                            <input type='text' id="searchKey" class='input_text' placeholder="책 제목 또는 작가이름" />
-                        </span>
-                        <button type='submit' class='sch_smit'>검색</button>
-                    </form>
+                    <span class='green_window'>
+                        <input type='text' id="searchKey" name="searchKey" class='input_text' placeholder="책 제목 또는 작가이름" />
+                    </span>
+                    <button type='submit' onclick="f_searchnextbook()" class='sch_smit'>검색</button>
                 </div>                
             </div>
+            {% if nosearch == '' %}
+            <img style="margin-left: auto; margin-right: auto; display: block;margin-top:30px;"
+            src="{% static 'images/content/noresult.png' %}"/>
+               <h2 style="text-align: center;">검색결과가 존재하지 않습니다.
+                   <br/>검색어를 다시 한번 확인해 주세요!</h2>
+            {% else %}
+            {% for ourbook in searchBook %}
+            
+            <div class="col-sm-3" style="margin-top:30px;">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo">
+                            <a href="/bookDetail?bookId={{ ourbook.isbn }}"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgIndex }}/l{{ ourbook.isbn }}.jpg" alt="{{ ourbook.imgAlt }}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+
         </div>
     </div>
 </section>
@@ -80,4 +100,17 @@
             location.href = "/nowbook/";
         }
     }
+
+    function f_searchnextbook(){
+        var searchKey = document.getElementById('searchKey').value;
+
+        if (searchKey == null || searchKey.trim() == ''){
+            alert("검색어를 입력해주세요!");
+            return false;
+        }
+
+        location.href="/nextbooksearch?searchKey="+searchKey;
+        return false;
+    }
+
 </script> {% endblock %}
