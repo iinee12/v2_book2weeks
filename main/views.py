@@ -318,8 +318,8 @@ def meetingdetail(request):
 
 def nextbooksearch(request):
     searchKeyWord = request.GET.get('searchKey')
-    client_id = ""
-    client_secret = ""
+    client_id = "4oOHm4oAQ2oUFLEfXyKp"
+    client_secret = "HKkulo_dgv"
     encText = urllib.parse.quote(str(searchKeyWord))
     url = "https://openapi.naver.com/v1/search/book?query=" + encText+"&sort=count&display=4"
     request_forNaver = urllib.request.Request(url)
@@ -333,7 +333,6 @@ def nextbooksearch(request):
         json_rt = response_body.decode('utf-8')
         py_rt = json.loads(json_rt)
 
-        print(py_rt)
         for i in range(0, len(py_rt['items'])):
             dic = {'isbn': py_rt['items'][i]['isbn'].split(' ')[1],
              'imgIndex': py_rt['items'][i]['isbn'].split(' ')[1][-3:],
