@@ -318,8 +318,8 @@ def meetingdetail(request):
 
 def nextbooksearch(request):
     searchKeyWord = request.GET.get('searchKey')
-    client_id = "4oOHm4oAQ2oUFLEfXyKp"
-    client_secret = "HKkulo_dgv"
+    client_id = ""
+    client_secret = ""
     encText = urllib.parse.quote(str(searchKeyWord))
     url = "https://openapi.naver.com/v1/search/book?query=" + encText+"&sort=count&display=4"
     request_forNaver = urllib.request.Request(url)
