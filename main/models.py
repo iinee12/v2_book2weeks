@@ -69,3 +69,15 @@ class starScore( models.Model ):
     created = models.CharField(max_length=30)
     def __str__(self):
         return str(self.bookId)+'('+str(self.scoreWriter)+')'+'('+str(self.scoreId)+')'
+
+
+
+class Wishbooks( models.Model ):
+    bookId = models.ForeignKey(Ourbooks, '')
+    register = models.CharField(max_length=100)
+    wishbooktitle =  models.CharField(max_length=100)
+    ourbookflag = models.CharField(max_length=5)
+    reason = models.TextField(default='')
+    created = models.CharField(max_length=30)
+    def __str__(self):
+        return self.wishbooktitle

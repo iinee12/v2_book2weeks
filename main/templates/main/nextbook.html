@@ -28,7 +28,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="/book/">검색하기</a>
+                                <a href="/nextbook/">검색하기</a>
                             </h4>
                         </div>
                     </div>
@@ -36,13 +36,6 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a href="/book/">등록된 책</a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a href="/book/">내가 등록한 책</a>
                             </h4>
                         </div>
                     </div>
@@ -76,16 +69,23 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo">
-                            <a href="/bookDetail?bookId={{ ourbook.isbn }}"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgIndex }}/l{{ ourbook.isbn }}.jpg" alt="{{ ourbook.imgAlt }}" /></a>
+                            <a href="/bookDetail?bookId={{ ourbook.isbn }}"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgIndex }}/l{{ ourbook.isbn }}.jpg"
+                                 onerror="this.src='{{ ourbook.imgAlt }}'" /></a>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
             {% endif %}
-
-
-
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+ 
+            <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>                                                               
+                    <p>Some text in the Modal..</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
