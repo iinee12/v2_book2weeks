@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm, LoginForm, SentenceForm, SoreForm
-from .models import Meeting, category, Ourbooks, Reading, sentence, starScore
+from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks
 from django.shortcuts import redirect
 import time
 import random
@@ -318,8 +318,8 @@ def meetingdetail(request):
 
 def nextbooksearch(request):
     searchKeyWord = request.GET.get('searchKey')
-    client_id = "4oOHm4oAQ2oUFLEfXyKp"
-    client_secret = "HKkulo_dgv"
+    client_id = ""
+    client_secret = ""
     encText = urllib.parse.quote(str(searchKeyWord))
     url = "https://openapi.naver.com/v1/search/book?query=" + encText+"&sort=count&display=4"
     request_forNaver = urllib.request.Request(url)
@@ -349,3 +349,21 @@ def nextbooksearch(request):
         nosearch = 'exist'
 
     return render(request, 'main/nextbook.html', {'searchBook':searchBook, 'nosearch':nosearch})
+
+def post_wishBookdetail(request):
+    post_isbn = request.POST.get('isbn')
+
+    ourbook = Ourbooks.objects.filter(bookId=post_isbn)
+    context = {}
+    if( len(ourbook) > 0 ):
+        context = {'message':'이미 발제한 책입니다.'}
+        return HttpResponse(json.dumps(context), content_type="application/json")
+
+    wishbook = Wishbooks.objects.filter(bookId=post_isbn)
+    if( len(ourbook) > 0 ):
+        context = {'message':'이미 등록된 책입니다. 등록된 책 리스트를 확인하세요'}
+        return HttpResponse(json.dumps(context), content_type="application/json")
+
+
+    return HttpResponse(json.dumps(context), content_type="application/json")
+    # context를 json 타입으로

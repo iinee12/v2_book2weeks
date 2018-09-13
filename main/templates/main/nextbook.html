@@ -69,7 +69,7 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo">
-                            <a href="/bookDetail?bookId={{ ourbook.isbn }}"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgIndex }}/l{{ ourbook.isbn }}.jpg"
+                            <a onclick="f_modalDisplay('{{ ourbook.isbn }}')"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgIndex }}/l{{ ourbook.isbn }}.jpg"
                                  onerror="this.src='{{ ourbook.imgAlt }}'" /></a>
                         </div>
                     </div>
@@ -113,4 +113,29 @@
         return false;
     }
 
+
+
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById('myModal');
+    // When the user clicks on the button, open the modal 
+    function f_modalDisplay(isbn) {
+        $.ajax({ // .like 버튼을 클릭하면 <새로고침> 없이 ajax로 서버와 통신하겠다.
+            type: "POST", // 데이터를 전송하는 방법을 지정
+            url: "/wishBookdetail/", // 통신할 url을 지정
+            data: {'isbn': isbn, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, // 서버로 데이터 전송시 옵션
+            dataType: "json", 
+            success: function(response){ // 통신 성공시 - 동적으로 좋아요 갯수 변경, 유저 목록 변경
+                alert(response.message)
+            },
+            error: function(request, status, error){ // 통신 실패시 - 로그인 페이지 리다이렉트
+                alert("로그인이 필요합니다.")
+            },
+        });
+        modal.style.display = "block";
+    }
+ 
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 </script> {% endblock %}
