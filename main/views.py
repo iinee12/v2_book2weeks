@@ -340,7 +340,7 @@ def nextbooksearch(request):
             searchBook.append(dic)
     else:
         print("Error Code:" + rescode)
-
+   
     nosearch = ''    
     context = {'searchBook':searchBook}
     if (len(searchBook) == 0) :
