@@ -8,7 +8,10 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Reading
-        fields = ('content', 'title', 'bookId' )
+        widgets = {
+            'readId': forms.TextInput({'type':'hidden', 'id':'readIdforupdate'})
+        }
+        fields = ('content', 'title', 'bookId', 'readId' )
 
 class SentenceForm(forms.ModelForm):
     

@@ -232,10 +232,8 @@ def readingWirte(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            print(request.session['member_id'])
             post.created = nowDateTime
             post.writer = request.session['member_id']
-            post.readId = str(request.session['member_id'])+str(makePkDateTime)
             post.save()
             return redirect('../readingdetail?readId='+post.readId)
     else:
@@ -245,10 +243,25 @@ def readingWirte(request):
     return render(request, 'main/readingwrite.html', context)
 
 def readingChange(request):
+
     readId = request.GET.get('readId')
-    reading = Reading.objects.select_related('bookId').filter(readId=readId)
-    form = PostForm(initial={'content': reading[0].content, 'title':reading[0].title,  'bookId':reading[0].bookId})
-    context = {'form': form}
+
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        print(form)
+        print('오냐?')
+        
+        reading_instance = Reading.objects.filter(request.POST.get('readId'))
+        reading_instance = form.save(commit=False)
+        reading_instance.created = nowDateTime
+        reading_instance.writer = request.session['member_id']
+        reading_instance.update()
+        print('리다 전')
+        return redirect('../readingdetail?readId='+request.POST.get('readId'))
+    else:
+        reading = Reading.objects.select_related('bookId').filter(readId=readId)
+        form = PostForm(initial={'content': reading[0].content, 'title':reading[0].title,  'bookId':reading[0].bookId})
+    context = {'form': form, 'readId':readId}
     return render(request, 'main/readingwrite.html', context)
 
 
