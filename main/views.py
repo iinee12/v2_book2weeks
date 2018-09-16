@@ -245,18 +245,20 @@ def readingWirte(request):
 def readingChange(request):
 
     readId = request.GET.get('readId')
-
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
         form = PostForm(request.POST)
-        print(form)
-        print('오냐?')
-        
-        reading_instance = Reading.objects.filter(request.POST.get('readId'))
-        reading_instance = form.save(commit=False)
+        filterReadId = request.POST.get('bookId')
+        reading_instance = Reading.objects.get(readId=request.POST.get('readId'))
         reading_instance.created = nowDateTime
         reading_instance.writer = request.session['member_id']
-        reading_instance.update()
-        print('리다 전')
+        reading_instance.readId = request.POST.get('readId')
+        reading_instance.title = request.POST.get('title')
+        reading_instance.content = request.POST.get('content')
+        reading_instance.bookId.bookId = request.POST.get('bookId')
+        reading_instance.save()
         return redirect('../readingdetail?readId='+request.POST.get('readId'))
     else:
         reading = Reading.objects.select_related('bookId').filter(readId=readId)
