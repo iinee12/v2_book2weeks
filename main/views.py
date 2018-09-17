@@ -351,7 +351,10 @@ def nextbooksearch(request):
         for i in range(0, len(py_rt['items'])):
             dic = {'isbn': py_rt['items'][i]['isbn'].split(' ')[1],
              'imgIndex': py_rt['items'][i]['isbn'].split(' ')[1][-3:],
-             'imgAlt':py_rt['items'][i]['image']}
+             'imgAlt':py_rt['items'][i]['image'],
+             'title':py_rt['items'][i]['title'],
+             'author':py_rt['items'][i]['author'],
+             'publisher':py_rt['items'][i]['publisher']}
             searchBook.append(dic)
     else:
         print("Error Code:" + rescode)
@@ -375,10 +378,11 @@ def post_wishBookdetail(request):
         return HttpResponse(json.dumps(context), content_type="application/json")
 
     wishbook = Wishbooks.objects.filter(bookId=post_isbn)
-    if( len(ourbook) > 0 ):
+    if( len(wishbook) > 0 ):
         context = {'message':'이미 등록된 책입니다. 등록된 책 리스트를 확인하세요'}
         return HttpResponse(json.dumps(context), content_type="application/json")
-
-
-    return HttpResponse(json.dumps(context), content_type="application/json")
+    else :
+        context = {'message':''}
+        return HttpResponse(json.dumps(context), content_type="application/json")
+    
     # context를 json 타입으로
