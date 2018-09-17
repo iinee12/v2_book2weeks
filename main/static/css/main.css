@@ -2819,7 +2819,7 @@ h2.title {
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  height: 50%;                  
+  height: 40%;                  
 }
 
 /* The Close Button */
@@ -2834,4 +2834,11 @@ h2.title {
             color: black;
             text-decoration: none;
             cursor: pointer;
+}
+
+.modalWishbook img {
+  border: 1px solid #F7F7F0;
+  height: 300px;
+  width: 55%;
+  margin-left: 50px;
 }

@@ -77,6 +77,7 @@
                     </div>
                 </div>
             </div>
+
             {% endfor %}
             {% endif %}
                     <!-- The Modal -->
@@ -85,7 +86,7 @@
                                 <div class="modal-content">
                                     <span class="close">&times;</span>                                                               
                                     <div class="col-sm-5">
-                                            <div class="view-product" >
+                                            <div class="modalWishbook" >
                                                     <img id="modalImage" src="" alt="" />
                                             </div>
                                         </div>
@@ -96,11 +97,21 @@
                                                 <p id="modalISBN"></p>
                                                 <p id="modalAuthor"></p>
                                                 <p id="modalpublisher"></p>
+                                                <p style="margin-top:10px;" ><발제 이유></p>
+                                                <textarea id="modaldiscuss" style="height:90px;"></textarea>
+                                                <button type="button" id="modalclose" style="float:right;"
+                                                class="btn btn-default get">닫기</button>
+                                                <button type="button" id="modalregist" style="float:right; margin-right: 10px;"
+                                                class="btn btn-default get">등록</button>
                                             </div>
                                             <!--/product-information-->
                                         </div>
                                 </div>
                             </div>
+                            <form action="//" id="" method="POST">
+
+                            </form>
+
         </div>
     </div>
 </section>
@@ -132,6 +143,8 @@
 
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById('myModal');
+    var modalclose = document.getElementById('modalclose');
+    var modalregist = document.getElementById('modalregist');
     // When the user clicks on the button, open the modal 
     function f_modalDisplay(isbn, imgIndex, title, author, publisher, imgAlt) {
         $.ajax({ // .like 버튼을 클릭하면 <새로고침> 없이 ajax로 서버와 통신하겠다.
@@ -162,5 +175,11 @@
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
+    }
+    modalclose.onclick = function(){
+        modal.style.display = "none";
+    }
+    modalregist.onclick = function(){
+
     }
 </script> {% endblock %}
