@@ -74,7 +74,7 @@ class starScore( models.Model ):
 
 class Wishbooks( models.Model ):
     wishId = models.CharField(max_length=30, primary_key=True)
-    bookId = models.ForeignKey(Ourbooks, '')
+    bookId = models.CharField(max_length=100)
     register = models.CharField(max_length=100)
     wishbooktitle =  models.CharField(max_length=100)
     ourbookflag = models.CharField(max_length=5)

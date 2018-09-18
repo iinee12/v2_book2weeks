@@ -108,13 +108,14 @@
                                         </div>
                                 </div>
                             </div>
+                            <div style="display:none;">
                             <form action="/nextbook/" id="wishfrm" method="POST">
                                 {% csrf_token %}
                                 {{ form.bookId }}
-                                {{ form.reason}}
+                                {{ form.reason|safe}}
                                 {{ form.wishbooktitle}}
                             </form>
-
+                            </div>
         </div>
     </div>
 </section>
@@ -187,9 +188,11 @@
     }
     modalregist.onclick = function(){
         var discuss = $("#modaldiscuss").val();
-        
+        regiTitle = regiTitle.replace('<b>', '');
+        regiTitle = regiTitle.replace('</b>', '');
+        alert(regiTitle);
         document.getElementById('wishbookId').value = regiIsbn;
-        document.getElementById('wishbooktitle').value = regiTitle;
+        document.getElementById('wishbooktitle').value = regiTitle.trim();
         document.getElementById('wishbookReason').value = discuss;
         document.getElementById('wishfrm').submit();
     }

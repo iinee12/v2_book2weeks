@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks
+from django.contrib import messages 
 from django.shortcuts import redirect
 import time
 import random
@@ -109,8 +110,11 @@ def nextbook(request):
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
+        print('타냐?')
         form = wishbookForm(request.POST)
+        print(form)
         if form.is_valid():
+            print('타냐22?')
             post = form.save(commit=False)
             post.created = nowDateTime
             post.wishId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
@@ -118,8 +122,10 @@ def nextbook(request):
             post.register = request.session['member_id']
             post.save()
             return redirect('../nextbook/')
+        else:
+            print(messages.error(request, "Error"))
     else:
-        form = wishbookForm()
+        form = None
         
     context = {'form': form}
     return render(request, 'main/nextbook.html', context)
@@ -374,7 +380,7 @@ def nextbooksearch(request):
             searchBook.append(dic)
     else:
         print("Error Code:" + rescode)
-   
+    form = wishbookForm()
     nosearch = ''    
     context = {'searchBook':searchBook}
     if (len(searchBook) == 0) :
@@ -382,7 +388,7 @@ def nextbooksearch(request):
     else:
         nosearch = 'exist'
 
-    return render(request, 'main/nextbook.html', {'searchBook':searchBook, 'nosearch':nosearch})
+    return render(request, 'main/nextbook.html', {'searchBook':searchBook, 'nosearch':nosearch, 'form':form})
 
 def post_wishBookdetail(request):
     post_isbn = request.POST.get('isbn')
