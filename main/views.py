@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import PostForm, LoginForm, SentenceForm, SoreForm
+from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks
 from django.shortcuts import redirect
 import time
@@ -105,8 +105,24 @@ def nowbookCall(request):
     return render(request, 'main/nowbook.html', context)
 
 def nextbook(request):
-    
-    return render(request, 'main/nextbook.html')
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = wishbookForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.wishId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.ourbookflag = 'F'
+            post.register = request.session['member_id']
+            post.save()
+            return redirect('../nextbook/')
+    else:
+        form = wishbookForm()
+        
+    context = {'form': form}
+    return render(request, 'main/nextbook.html', context)
 
 
 # bookmain page loading.

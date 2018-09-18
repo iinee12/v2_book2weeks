@@ -1,5 +1,5 @@
 from django_summernote import fields as summer_fields
-from .models import Reading, sentence, starScore
+from .models import Reading, sentence, starScore, Wishbooks
 from django.contrib.auth.models import User
 from django import forms
 
@@ -12,6 +12,17 @@ class PostForm(forms.ModelForm):
             'readId': forms.TextInput({'type':'hidden', 'id':'readIdforupdate'})
         }
         fields = ('content', 'title', 'bookId', 'readId' )
+
+class wishbookForm(forms.ModelForm):
+    
+    class Meta:
+        model = Wishbooks
+        widgets = {
+            'wishbooktitle': forms.TextInput({'type':'hidden', 'id':'wishbooktitle'}),
+            'bookId': forms.TextInput({'type':'hidden', 'id':'wishbookId'}),
+            'reason': forms.Textarea({'type':'hidden', 'id':'wishbookReason'})
+        }
+        fields = ('reason', 'wishbooktitle', 'bookId' )
 
 class SentenceForm(forms.ModelForm):
     
