@@ -80,5 +80,6 @@ class Wishbooks( models.Model ):
     ourbookflag = models.CharField(max_length=5)
     reason = models.TextField(default='')
     created = models.CharField(max_length=30)
+    imgindex = models.CharField(max_length=30, default='')
     def __str__(self):
         return self.wishbooktitle

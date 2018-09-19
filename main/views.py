@@ -409,4 +409,6 @@ def post_wishBookdetail(request):
 
 def wishlist(request):
     wishbook = Wishbooks.objects.all()
+    for book in wishbook:
+        book.imgindex = book.bookId[-3:]
     return render(request, 'main/nextbookwishlist.html', {'wishbook':wishbook})
