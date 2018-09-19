@@ -110,18 +110,16 @@ def nextbook(request):
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
-        print('타냐?')
         form = wishbookForm(request.POST)
         print(form)
         if form.is_valid():
-            print('타냐22?')
             post = form.save(commit=False)
             post.created = nowDateTime
             post.wishId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
             post.ourbookflag = 'F'
             post.register = request.session['member_id']
             post.save()
-            return redirect('../nextbook/')
+            return redirect('../wishlist/')
         else:
             print(messages.error(request, "Error"))
     else:
