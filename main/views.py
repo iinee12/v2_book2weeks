@@ -406,5 +406,7 @@ def post_wishBookdetail(request):
     else :
         context = {'message':''}
         return HttpResponse(json.dumps(context), content_type="application/json")
-    
-    # context를 json 타입으로
+
+def wishlist(request):
+    wishbook = Wishbooks.objects.all()
+    return render(request, 'main/nextbookwishlist.html', {'wishbook':wishbook})
