@@ -1,6 +1,7 @@
 from django.db import models
 from django_summernote import models as summer_model
 from django_summernote import fields as summer_fields
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -83,3 +84,13 @@ class Wishbooks( models.Model ):
     imgindex = models.CharField(max_length=30, default='')
     def __str__(self):
         return self.wishbooktitle
+
+
+class Memos(models.Model):
+  name_id = models.ForeignKey(User, on_delete = models.CASCADE)
+  likes = models.ManyToManyField(User, related_name='likes')
+  
+
+  @property
+  def total_likes(self):
+    return self.likes.count() #likes 컬럼의 값의 갯수를 센다

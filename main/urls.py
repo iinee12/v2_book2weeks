@@ -16,6 +16,7 @@ urlpatterns = [
     path('nowbooksendeletefordetail/', views.nowbooksendeletefordetail),
     path('nowbookscoredeletefordetail/', views.nowbookscoredeletefordetail),
     path('nextbook/', views.nextbook),
+    url(r'^like/$', views.like, name='like'),
     url(r'^wishBookdetail/$', views.post_wishBookdetail, name='post_wishBookdetail'),
     path('nextbooksearch/', views.nextbooksearch),
     path('scoreregistfordetail/', views.scoreregistfordetail),
