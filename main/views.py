@@ -410,3 +410,8 @@ def wishlist(request):
     for book in wishbook:
         book.imgindex = book.bookId[-3:]
     return render(request, 'main/nextbookwishlist.html', {'wishbook':wishbook})
+
+def wishbookdelete(request):
+    wishbook = Wishbooks.objects.get(bookId=request.GET.get('bookId'))
+    wishbook.delete()
+    return redirect('../wishlist/')

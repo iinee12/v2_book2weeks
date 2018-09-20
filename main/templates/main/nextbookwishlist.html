@@ -86,20 +86,14 @@
                                                 <p id="modaldiscuss"></p>
                                                 <button type="button" id="modalclose" style="float:right;"
                                                 class="btn btn-default get">닫기</button>
-                                                <button type="button" id="modalregist" style="float:right; margin-right: 10px;"
-                                                class="btn btn-default get">등록</button>
+                                                
+                                                <button type="button" id="modalregistdelete" style="float:right; margin-right: 10px;display:none;"
+                                                class="btn btn-default get">등록취소</button>
+                                                
                                             </div>
                                             <!--/product-information-->
                                         </div>
                                 </div>
-                            </div>
-                            <div style="display:none;">
-                            <form action="/nextbook/" id="wishfrm" method="POST">
-                                {% csrf_token %}
-                                {{ form.bookId }}
-                                {{ form.reason|safe}}
-                                {{ form.wishbooktitle}}
-                            </form>
                             </div>
         </div>
     </div>
@@ -129,14 +123,22 @@
     }
 
 
+
+
     var regiIsbn = '';
     var regiTitle = '';
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById('myModal');
     var modalclose = document.getElementById('modalclose');
     var modalregist = document.getElementById('modalregist');
+
     // When the user clicks on the button, open the modal 
     function f_modalDisplay(isbn, imgIndex, title, register, reason, imgAlt) {
+
+        if( '{{user.username}}' == register ){
+            document.getElementById('modalregistdelete').style.display='block';
+        }
+
         var imgAddress="http://image.kyobobook.co.kr/images/book/large/"+imgIndex+"/l"+isbn+".jpg";
         document.getElementById("modalImage").src = imgAddress;
         document.getElementById("modaltitle").innerHTML = title;
@@ -155,14 +157,9 @@
     modalclose.onclick = function(){
         modal.style.display = "none";
     }
-    modalregist.onclick = function(){
-        var discuss = $("#modaldiscuss").val();
-        regiTitle = regiTitle.replace('<b>', '');
-        regiTitle = regiTitle.replace('</b>', '');
-        alert(regiTitle);
-        document.getElementById('wishbookId').value = regiIsbn;
-        document.getElementById('wishbooktitle').value = regiTitle.trim();
-        document.getElementById('wishbookReason').value = discuss;
-        document.getElementById('wishfrm').submit();
+    modalregistdelete.onclick = function(){
+        if(confirm("등록을 취소하시겠습니까?")){
+            location.href="/wishbookdelete?bookId="+regiIsbn;
+        }
     }
 </script> {% endblock %}
