@@ -82,15 +82,12 @@ class Wishbooks( models.Model ):
     reason = models.TextField(default='')
     created = models.CharField(max_length=30)
     imgindex = models.CharField(max_length=30, default='')
+    likes = models.ManyToManyField(User, related_name='likes')
+
     def __str__(self):
         return self.wishbooktitle
+        
+    @property
+    def total_likes(self):
+        return self.likes.count() #likes 컬럼의 값의 갯수를 센다
 
-
-class Memos(models.Model):
-  name_id = models.ForeignKey(User, on_delete = models.CASCADE)
-  likes = models.ManyToManyField(User, related_name='likes')
-  
-
-  @property
-  def total_likes(self):
-    return self.likes.count() #likes 컬럼의 값의 갯수를 센다
