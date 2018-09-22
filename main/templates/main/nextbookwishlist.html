@@ -60,7 +60,8 @@
                                 <img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg"
                                  onerror="this.src='{{ ourbook.imgAlt }}'" /></a>
                         </div>
-                        <input type="button" onclick="f_like('{{ourbook.bookId}}')"  class="like" name="{{ memo.id }}" value="Like">
+                        <input type="image" onclick="f_like('{{ourbook.bookId}}')" src="'{% static images\home\like_before.png %}'"
+                               class="like" value="Like">
                         <p id="count{{ ourbook.bookId }}">count : {{ ourbook.total_likes }}</p>
                     </div>
                 </div>
