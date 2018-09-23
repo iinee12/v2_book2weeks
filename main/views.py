@@ -423,10 +423,10 @@ def like(request):
 
         if memo.likes.filter(id = user.id).exists(): #이미 해당 유저가 likes컬럼에 존재하면
             memo.likes.remove(user) #likes 컬럼에서 해당 유저를 지운다.
-            message = 'You disliked this'
+            message = '좋아요를 취소합니다.'
         else:
             memo.likes.add(user)
-            message = 'You liked this'
+            message = '좋아요를 눌렀습니다.'
 
     context = {'likes_count' : memo.total_likes, 'message' : message}
     return HttpResponse(json.dumps(context), content_type='application/json')
