@@ -408,7 +408,11 @@ def wishlist(request):
     wishbook = Wishbooks.objects.all()
     for book in wishbook:
         book.imgindex = book.bookId[-3:]
-    return render(request, 'main/nextbookwishlist.html', {'wishbook':wishbook})
+    
+
+    
+    context = {'wishbook':wishbook}
+    return render(request, 'main/nextbookwishlist.html', context)
 
 def wishbookdelete(request):
     wishbook = Wishbooks.objects.get(bookId=request.GET.get('bookId'))
@@ -419,14 +423,14 @@ def like(request):
     if request.method == 'POST':
         user = request.user # 로그인한 유저를 가져온다.
         memo_id = request.POST.get('pk', None)
-        memo = Wishbooks.objects.get(bookId = memo_id) #해당 메모 오브젝트를 가져온다.
+        wishlike = Wishbooks.objects.get(bookId = memo_id) #해당 메모 오브젝트를 가져온다.
 
-        if memo.likes.filter(id = user.id).exists(): #이미 해당 유저가 likes컬럼에 존재하면
-            memo.likes.remove(user) #likes 컬럼에서 해당 유저를 지운다.
+        if wishlike.likes.filter(id = user.id).exists(): #이미 해당 유저가 likes컬럼에 존재하면
+            wishlike.likes.remove(user) #likes 컬럼에서 해당 유저를 지운다.
             message = '좋아요를 취소합니다.'
         else:
-            memo.likes.add(user)
+            wishlike.likes.add(user)
             message = '좋아요를 눌렀습니다.'
 
-    context = {'likes_count' : memo.total_likes, 'message' : message}
+    context = {'likes_count' : wishlike.total_likes, 'message' : message}
     return HttpResponse(json.dumps(context), content_type='application/json')

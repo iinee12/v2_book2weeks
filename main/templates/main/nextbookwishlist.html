@@ -60,9 +60,9 @@
                                 <img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg"
                                  onerror="this.src='{{ ourbook.imgAlt }}'" /></a>
                         </div>
-                        <input type="image" onclick="f_like('{{ourbook.bookId}}')" src="'{% static images\home\like_before.png %}'"
-                               class="like" value="Like">
-                        <p id="count{{ ourbook.bookId }}">count : {{ ourbook.total_likes }}</p>
+                        <input type="image" onclick="f_like('{{ourbook.bookId}}')" src="{% static 'images\home\like_before.png' %}"
+                               class="like" value="Like" style="float:left;margin-right: 10px;">
+                        <p id="count{{ ourbook.bookId }}">전체 좋아요 수: {{ ourbook.total_likes }}</p>
                     </div>
                 </div>
             </div>
@@ -177,7 +177,6 @@
             success: function(response){ // 성공했을 때 호출할 콜백을 지정한다.
                 $('#count'+ bookId).html("count : "+ response.likes_count);
                 alert(response.message);
-                alert("좋아요수 :" + response.likes_count);
             },
             error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
