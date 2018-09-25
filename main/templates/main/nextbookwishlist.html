@@ -60,9 +60,16 @@
                                 <img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg"
                                  onerror="this.src='{{ ourbook.imgAlt }}'" /></a>
                         </div>
-                        <input type="image" onclick="f_like('{{ourbook.bookId}}')" src="{% static 'images\home\like_before.png' %}"
-                               class="like" value="Like" style="float:left;margin-right: 10px;">
-                        <p id="count{{ ourbook.bookId }}">전체 좋아요 수: {{ ourbook.total_likes }}</p>
+                        {% if ourbook.total_likes == 0 %}
+                        <a class="like" onmouseover="setCursor(this,'pointer');" onclick="f_like('{{ourbook.bookId}}')" id="{{ ourbook.bookId }}"><img id = "like-img{{ ourbook.bookId }}" src="{% static 'images\home\like_before.png' %}" alt="클릭시 좋아요"></a>
+                        <span class= "like_count" id="count{{ ourbook.bookId }}"></span>
+                        {% elif ourbook.total_likes == 1%}
+                        <a class="like" onmouseover="setCursor(this,'pointer');" onclick="f_like('{{ourbook.bookId}}')" id="{{ ourbook.bookId }}"><img id = "like-img{{ ourbook.bookId }}" src="{% static 'images\home\like_after.png' %}" alt="클릭시 좋아요 취소"></a>
+                        <span class= "like_count" id="count{{ ourbook.bookId }}">{{ ourbook.total_likes}} like</span>
+                        {% else %}
+                        <a class="like" onmouseover="setCursor(this,'pointer');" onclick="f_like('{{ourbook.bookId}}')" id="{{ ourbook.bookId }}"><img id = "like-img{{ ourbook.bookId }}" src="{% static 'images\home\like_after.png' %}" alt="클릭시 좋아요 취소"></a>
+                        <span class= "like_count" id="count{{ ourbook.bookId }}">{{ ourbook.total_likes}} likes</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -111,6 +118,10 @@
         } else {
             location.href = "/nowbook/";
         }
+    }
+
+    function setCursor(str,str2){
+        str.style.cursor = str2;
     }
 
     function f_searchnextbook(){
@@ -175,8 +186,19 @@
             data: {'pk': bookId, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, 
             dataType: "json", 
             success: function(response){ // 성공했을 때 호출할 콜백을 지정한다.
-                $('#count'+ bookId).html("count : "+ response.likes_count);
-                alert(response.message);
+
+            if(response.likes_count == 1){
+                $('#count'+ bookId).html(response.likes_count + ' like ');
+                $('#like-img'+bookId).attr('src',"{% static 'images\home\like_after.png' %}");
+            }else if(response.likes_count == 0){
+                $('#count'+ bookId).html('');
+                $('#like-img'+bookId).attr('src',"{% static 'images\home\like_before.png' %}");
+            }else{
+                $('#count'+ bookId).html(response.likes_count + ' likes');
+                $('#like-img'+bookId).attr('src',"{% static 'images\home\like_after.png' %}");
+            }
+            alert(response.message);
+        
             },
             error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
