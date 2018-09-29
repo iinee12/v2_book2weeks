@@ -434,3 +434,6 @@ def like(request):
 
     context = {'likes_count' : wishlike.total_likes, 'message' : message}
     return HttpResponse(json.dumps(context), content_type='application/json')
+
+def staticsPage(request):
+    return render(request, 'main/staticsMain.html')

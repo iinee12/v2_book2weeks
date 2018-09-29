@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('book/', views.bookpage),
+    path('statics/', views.staticsPage),
     path('nowbook/', views.nowbookCall),
     path('wishlist/', views.wishlist),
     path('wishbookdelete/', views.wishbookdelete),
