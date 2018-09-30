@@ -11,6 +11,13 @@
             <div class="statictotalcount" >
                 <center><h3>총 {{ totalCount }}권</h3></center>    
             </div>
+            <div class="statictotalcount" style="margin-bottom:30px;">
+                <center><select style="width:70%;">
+                    {% for meet in meeting %}
+                    <option>&nbsp;&nbsp;{{ meet.meetingdate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 기준</option>
+                    {% endfor %}
+                </select></center>
+            </div>
         </div>
     </div>
 </div>

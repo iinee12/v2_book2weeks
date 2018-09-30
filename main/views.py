@@ -435,7 +435,13 @@ def like(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 def staticsPage(request):
+    
+    #총 권수 구하기
     ourbook = Ourbooks.objects.all()
     totalCount = len(ourbook)
-    context = {'totalCount':totalCount}
+
+    #기준 날짜 가져오기
+    meeting = Meeting.objects.filter(newMemberYN='Y')
+
+    context = {'totalCount':totalCount, 'meeting':meeting}
     return render(request, 'main/staticsMain.html', context)

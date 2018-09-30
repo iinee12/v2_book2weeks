@@ -29,8 +29,10 @@ class Meeting( models.Model ):
     meetingtitle = models.CharField(max_length=100)
     site =  models.CharField(max_length=100)
     photopath =  models.CharField(max_length=200)
+    newMemberYN = models.CharField(max_length=2, default='')
+    lastorder = models.CharField(max_length=200, default='')
     content = models.TextField(default='')
-    lastorder = models.TextField(default='')
+    
     def __str__(self):
         return self.meetingtitle
 
