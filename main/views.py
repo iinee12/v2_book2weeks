@@ -435,4 +435,7 @@ def like(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 def staticsPage(request):
-    return render(request, 'main/staticsMain.html')
+    ourbook = Ourbooks.objects.all()
+    totalCount = len(ourbook)
+    context = {'totalCount':totalCount}
+    return render(request, 'main/staticsMain.html', context)

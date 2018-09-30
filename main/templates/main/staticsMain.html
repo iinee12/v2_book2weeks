@@ -2,7 +2,18 @@
 <!DOCTYPE html> {% load static %} {% load mathfilters %} {% block content %}
 
 <section>
-
+<div class="container">
+    <div class="category-tab"><!--category-tab-->
+        <div class="col-sm-3" >
+            <div class="staticImage"  >
+                <center><img src="{% static 'images/cart/totalbookcount.png' %}" ></center>
+            </div>
+            <div class="statictotalcount" >
+                <center><h3>총 {{ totalCount }}권</h3></center>    
+            </div>
+        </div>
+    </div>
+</div>
 </section>
 
 {% endblock %}
