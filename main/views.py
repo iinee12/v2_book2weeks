@@ -6,6 +6,11 @@ from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks
 from django.contrib import messages 
 from django.shortcuts import redirect
+
+from random import randint
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
+
 import time
 import random
 import urllib.request
@@ -445,3 +450,19 @@ def staticsPage(request):
 
     context = {'totalCount':totalCount, 'meeting':meeting}
     return render(request, 'main/staticsMain.html', context)
+
+class LineChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        """Return 7 labels."""
+        return ["January", "February", "March", "April", "May", "June", "July"]
+
+    def get_data(self):
+        """Return 3 dataset to plot."""
+
+        return [[75, 44, 92, 11, 44, 95, 35],
+                [41, 92, 18, 3, 73, 87, 92],
+                [87, 21, 94, 3, 90, 13, 65]]
+
+
+line_chart = TemplateView.as_view(template_name='staticsMain.html')
+line_chart_json = LineChartJSONView.as_view()

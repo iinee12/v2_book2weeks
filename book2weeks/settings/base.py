@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'main',
     'mathfilters',
     'django_summernote',
+    'chartjs',
 ]
 
 MIDDLEWARE = [
