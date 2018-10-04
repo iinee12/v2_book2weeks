@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views, statics
+from . import views
 
 urlpatterns = [
     path('', views.index),
@@ -11,7 +11,6 @@ urlpatterns = [
     path('statics/', views.staticsPage),
     path('nowbook/', views.nowbookCall),
     path('wishlist/', views.wishlist),
-    path('line_chart_json/', views.line_chart_json),
     path('wishbookdelete/', views.wishbookdelete),
     path('nowbooksendelete/', views.nowbooksendelete),
     path('nowbookscoredelete/', views.nowbookscoredelete),
