@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm
-from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks
+from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm
+from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys
 from django.contrib import messages 
 from django.shortcuts import redirect
 
@@ -239,10 +239,33 @@ def readinglist(request):
     return render(request, 'main/readinglist.html', context)
 
 def readingdetail(request):
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)    
     filterName = request.GET.get('readId')
     reading = Reading.objects.select_related('bookId').filter(readId=filterName)
-    context = {'reading':reading}
+    readingReply = readingReplys.objects.filter(readId=filterName)
+
+    if request.method == "POST":
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.replyWriter = request.session['member_id']
+            post.replyId = 'reply_'+str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../readingdetail?readId='+str(request.POST.dict()['readId']))
+    else:
+        form = ReplyForm()    
+    
+    context = {'reading':reading, 'readingReply':readingReply, 'form':form}
     return render(request, 'main/readingdetail.html', context)
+
+def replydelete(request):
+    readingReply = readingReplys.objects.get(replyId=request.GET.get('replyId'))
+    readingReply.delete()
+    return redirect('../readingdetail?readId='+request.GET.get('readId'))
+
 
 
 # readingwrite page loading.

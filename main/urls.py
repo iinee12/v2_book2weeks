@@ -28,6 +28,7 @@ urlpatterns = [
     path('readingChange/', views.readingChange),
     path('readingwrite/', views.readingWirte),
     path('readingdetail/', views.readingdetail),
+    path('replydelete/', views.replydelete),
     path('meetingmain/', views.meetingmain),
     path('meeting/', views.meetingdetail),
     url(r'^login/$', views.signin, name='/login'),

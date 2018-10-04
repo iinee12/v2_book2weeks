@@ -3,8 +3,9 @@
 
 <div id="contact-page" class="container">
         <div class="bg">   	
+                {%for read in reading%}
             <div class="row">  	
-                    {%for read in reading%}
+                    
                     <h2>{{ read.title }}</h2>
                     <p>Book : {{ read.bookId.booktitle }}</p>
                     <br/><i class="fa fa-calendar" style="color: #FE980F;margin-left: 10px"></i> {{read.created}}
@@ -21,13 +22,59 @@
 
                     <button type="button" onclick="location=/readinglist/" class="btn btn-default get"
                     style="margin-bottom: 15px;margin-right: 13px; float:right;">목록</button>
-                    {%endfor%}
-            </div>  
+                    
+            </div>
+            <div class="row">
+                <div class="features_items">
+                    <h2 class="title text-center">reply</h2>
+                </div>
+                {% for reply in readingReply %}
+                <div class="u_cbox_area">
+                    <div>
+                        <span>
+                            <i class="fa fa-user" style="color: #FE980F;"></i>
+                            <strong>   {{ reply.replyWriter }}</strong>
+                        </span>
+                    </div>
+                    <div>
+                        <span>{{ reply.replyContent }}</span>
+                        {% if reply.replyWriter == user.username %}
+                        <a style="color: rgb(254, 15, 15);" onclick="f_replyDelete( '{{ reply.replyId }}', '{{read.readId}}' )">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <span style="font-style: italic;">{{ senten.created }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+                <form method="post" action="/readingdetail/" id="replyForm">
+                    {% csrf_token %}
+                    {{ form.readId }}
+                    {{ form.replyContent|safe }}
+                </form>
+                <button type="submit" onclick="f_replyRegister( '{{ read.readId }}' )"
+                id="sentenceBtn" class="btn btn-default get">등록</button>
+            </div> 
+            {%endfor%}
         </div>	
     </div><!--/#contact-page-->
 <script>
     function f_readingchange(readId){
         location.href="/readingChange?readId="+readId;
+    }
+    function f_replyRegister(readId){
+        if(confirm("댓글을 등록하시겠습니까?")){
+            document.getElementById('idReplyForReadId').value = readId;
+            document.getElementById('replyForm').submit();
+            return false;
+        }
+    }
+    function f_replyDelete(replyId, readId){
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            location.href="/replydelete?replyId="+replyId+"&readId="+readId;
+        }
     }
 
 </script>

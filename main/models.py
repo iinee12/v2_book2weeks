@@ -93,3 +93,11 @@ class Wishbooks( models.Model ):
     def total_likes(self):
         return self.likes.count() #likes 컬럼의 값의 갯수를 센다
 
+class readingReplys ( models.Model):
+    replyId = models.CharField(max_length=30, primary_key=True)
+    readId = models.ForeignKey(Reading, '')
+    replyContent = models.TextField(default='')
+    replyWriter = models.CharField(max_length=30)
+    created = models.CharField(max_length=30)
+    def __str__(self):
+        return str(self.readId)+'('+str(self.replyWriter)+')'+'('+str(self.replyId)+')'
