@@ -7,10 +7,6 @@ from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, W
 from django.contrib import messages 
 from django.shortcuts import redirect
 
-from random import randint
-from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
-
 import time
 import random
 import urllib.request
