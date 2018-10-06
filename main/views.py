@@ -1,11 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys
 from django.contrib import messages 
 from django.shortcuts import redirect
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
 
 import time
 import random
@@ -467,5 +472,25 @@ def staticsPage(request):
     #기준 날짜 가져오기
     meeting = Meeting.objects.filter(newMemberYN='Y')
 
-    context = {'totalCount':totalCount, 'meeting':meeting}
+    ourbookcount=[]
+    cateName = category.objects.all().order_by('categoryCode')
+    for catego in cateName :
+        if catego.categoryName != '전체':
+            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, statusflag='R')))
+    ddd = {'count':ourbookcount}
+    print()
+    sss = json.dumps(ddd)
+
+    context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss}
     return render(request, 'main/staticsMain.html', context)
+
+class ChartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        data = {
+            "sales":100,
+            "customers":10,
+        }
+        return Response(data)

@@ -5,6 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+from .views import ChartData
+
 urlpatterns = [
     path('', views.index),
     path('book/', views.bookpage),
@@ -18,6 +20,7 @@ urlpatterns = [
     path('nowbookscoredeletefordetail/', views.nowbookscoredeletefordetail),
     path('nextbook/', views.nextbook),
     url(r'^like/$', views.like, name='like'),
+    url(r'^api/staticsBar/$', ChartData.as_view() ),
     url(r'^wishBookdetail/$', views.post_wishBookdetail, name='post_wishBookdetail'),
     path('nextbooksearch/', views.nextbooksearch),
     path('scoreregistfordetail/', views.scoreregistfordetail),
