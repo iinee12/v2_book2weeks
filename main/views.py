@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys
@@ -478,10 +479,11 @@ def staticsPage(request):
         if catego.categoryName != '전체':
             ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, statusflag='R')))
     ddd = {'count':ourbookcount}
-    print()
     sss = json.dumps(ddd)
+    
+    userInfo = User.objects.all()
 
-    context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss}
+    context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss, 'userInfo':userInfo}
     return render(request, 'main/staticsMain.html', context)
 
 class ChartData(APIView):

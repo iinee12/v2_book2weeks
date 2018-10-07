@@ -26,6 +26,13 @@
             </div>
         </div>
         <div class="col-sm-7">
+            <center><h3>분야별 발제 책</h3></center>
+            <select style="width:20%; float: right;">
+                <option>전체</option>
+                {% for userFirstName in userInfo %}
+                <option>{{userFirstName.first_name}}</option>
+                {% endfor %}
+            </select>
             <canvas id="myChart" width="100%" height="100%"></canvas>
         </div>
     </div>
