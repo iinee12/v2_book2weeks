@@ -466,6 +466,10 @@ def like(request):
 
 def staticsPage(request):
     
+    presentation = request.GET.get('presentation')
+    if presentation == '전체' or presentation == '' or presentation is None :
+        presentation = ''
+    
     #총 권수 구하기
     ourbook = Ourbooks.objects.all()
     totalCount = len(ourbook)
@@ -477,22 +481,24 @@ def staticsPage(request):
     cateName = category.objects.all().order_by('categoryCode')
     for catego in cateName :
         if catego.categoryName != '전체':
-            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, statusflag='R')))
+            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, presentation__contains=presentation, statusflag='R')))
     ddd = {'count':ourbookcount}
     sss = json.dumps(ddd)
     
     userInfo = User.objects.all()
 
-    context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss, 'userInfo':userInfo}
+    context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss, 'userInfo':userInfo, 'presentation': presentation}
     return render(request, 'main/staticsMain.html', context)
 
 def chartReload(request):
     presentation = request.POST.get('presentation', None)
+    if presentation == '전체' :
+        presentation = ''
     ourbookcount=[]
     cateName = category.objects.all().order_by('categoryCode')
     for catego in cateName :
         if catego.categoryName != '전체':
-            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, data__contains=presentation,statusflag='R')))
+            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, presentation__contains=presentation, statusflag='R')))
     ddd = {'count':ourbookcount}
     sss = json.dumps(ddd)
 
