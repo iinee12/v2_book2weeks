@@ -486,6 +486,21 @@ def staticsPage(request):
     context = {'totalCount':totalCount, 'meeting':meeting, 'ourbookcount':sss, 'userInfo':userInfo}
     return render(request, 'main/staticsMain.html', context)
 
+def chartReload(request):
+    presentation = request.POST.get('presentation', None)
+    ourbookcount=[]
+    cateName = category.objects.all().order_by('categoryCode')
+    for catego in cateName :
+        if catego.categoryName != '전체':
+            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, data__contains=presentation,statusflag='R')))
+    ddd = {'count':ourbookcount}
+    sss = json.dumps(ddd)
+
+    return HttpResponse(sss, content_type='application/json')
+
+
+
+
 class ChartData(APIView):
     authentication_classes = []
     permission_classes = []

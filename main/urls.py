@@ -20,6 +20,7 @@ urlpatterns = [
     path('nowbookscoredeletefordetail/', views.nowbookscoredeletefordetail),
     path('nextbook/', views.nextbook),
     url(r'^like/$', views.like, name='like'),
+    url(r'^chartReload/$', views.chartReload, name='chartReload'),
     url(r'^api/staticsBar/$', ChartData.as_view() ),
     url(r'^wishBookdetail/$', views.post_wishBookdetail, name='post_wishBookdetail'),
     path('nextbooksearch/', views.nextbooksearch),

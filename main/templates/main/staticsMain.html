@@ -27,7 +27,7 @@
         </div>
         <div class="col-sm-7">
             <center><h3>분야별 발제 책</h3></center>
-            <select style="width:20%; float: right;">
+            <select style="width:20%; float: right;" onchange="f_chartreroad(this.value)">
                 <option>전체</option>
                 {% for userFirstName in userInfo %}
                 <option>{{userFirstName.first_name}}</option>
@@ -41,9 +41,6 @@
 
 <script>
 var ctx = document.getElementById("myChart");
-
-
-
 var jsontext = '{{ourbookcount|escapejs}}';
 var contact = JSON.parse(jsontext);
 console.log(contact.count);
@@ -100,6 +97,77 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+
+function f_chartreroad(value){
+    $.ajax({
+            type: "POST",
+            url: "{% url 'chartReload' %}", 
+            data: {'presentation': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, 
+            dataType: "json", 
+            success: function(response){ // 성공했을 때 호출할 콜백을 지정한다.
+                var ctx = document.getElementById("myChart");
+                var jsontext = response.count;
+                console.log(jsontext);
+                var data = jsontext;
+                var myChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["소설", "시/에세이", "인문", "경제/경영", "자기개발", "정치/사회", "역사/문화",
+                                "종교", "예술/대중문화", "기술/공학", "과학", "여행", "컴퓨터/IT"],
+                        datasets: [{
+                            label:"권",
+                            data: data,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(192, 192, 192, 0.2)',
+                                'rgba(128, 128, 0, 0.2)',
+                                'rgba(0,128,0, 0.2)',
+                                'rgba(128,0,128, 0.2)',
+                                'rgba(0,128,128, 0.2)',
+                                'rgba(0,0,128, 0.2)',
+                                'rgba(0,255,255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(192, 192, 192, 1)',
+                                'rgba(128, 128, 0, 1)',
+                                'rgba(0,128,0, 1)',
+                                'rgba(128,0,128, 1)',
+                                'rgba(0,128,128, 1)',
+                                'rgba(0,0,128, 1)',
+                                'rgba(0,255,255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+            error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+}
+
 </script>
 
 {% endblock %}
