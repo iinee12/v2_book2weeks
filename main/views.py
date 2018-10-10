@@ -223,7 +223,7 @@ def bookDetail(request):
             indiaverStar = indiaverStar + int(starindi.scoreStar);
         if indiaverStar != 0:
             averStar = indiaverStar / totalCnt
-
+            averStar = round(averStar,1)
 
         for book in ourbook:
             book.imgindex = book.bookId[-3:]
