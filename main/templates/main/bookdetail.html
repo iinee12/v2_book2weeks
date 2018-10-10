@@ -49,19 +49,11 @@
                             <input id="tab2" type="radio" name="tab" />
                             <input id="tab3" type="radio" name="tab" />
                             <input id="tab4" type="radio" name="tab" />
-                            <label for="tab1">책소개</label>
-                            <label for="tab2">평가</label>
-                            <label for="tab3">문장들</label>
-                            <label for="tab4">발제문</label>
+                            <label for="tab1">평가</label>
+                            <label for="tab2">문장들</label>
+                            <label for="tab3">발제문</label>
+                            <label for="tab4">책소개</label>
                             <div class="tab1_content">
-                                    <div class="tab-pane fade active in" id="reviews" >
-                                        <div class="col-sm-12" style="margin-top: 30px;">
-                                            <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
-                                            <p>[출처 : YES24 제공]</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <div class="tab2_content">
                                     {% for onestar in star %}
                                     
                                     <div class="u_cbox_area">
@@ -107,7 +99,7 @@
                                 <button type="submit" onclick="f_scoreRegist( '{{ ourbook.bookId }}' )"
                                 id="scoreBtn" class="btn btn-default get">평가</button>
                             </div>
-                            <div class="tab3_content">
+                            <div class="tab2_content">
                                     {% for senten in sentence %}
                                     <div class="u_cbox_area">
                                         <div>
@@ -138,10 +130,18 @@
                                     id="sentenceBtn" class="btn btn-default get">등록</button>
                                 </div>
 
-                            <div class="tab4_content">
+                            <div class="tab3_content">
                                 <div class="tab-pane fade active in" id="reviews" >
                                     <div class="col-sm-12" style="margin-top: 30px;">
                                         <p style="font-size:15px;line-height:28px">{{ ourbook.discuss|linebreaksbr}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab4_content">
+                                <div class="tab-pane fade active in" id="reviews" >
+                                    <div class="col-sm-12" style="margin-top: 30px;">
+                                        <p style="font-size:15px;line-height:28px">{{ ourbook.description|linebreaksbr}}</p>
+                                        <p>[출처 : YES24 제공]</p>
                                     </div>
                                 </div>
                             </div>
