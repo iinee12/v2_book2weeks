@@ -504,6 +504,8 @@ def chartReload(request):
 
     return HttpResponse(sss, content_type='application/json')
 
+def mypageMain(request):
+    return render(request, 'main/mypage.html')
 
 
 
