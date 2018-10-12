@@ -21,12 +21,6 @@
         </div>
         <div class="col-sm-7">
             <center><h3>분야별 발제 책</h3></center>
-            <select id="chartFilter" style="width:20%; float: right;" onchange="f_chartreroad(this.value)">
-                <option>전체</option>
-                {% for userFirstName in userInfo %}
-                <option>{{userFirstName.first_name}}</option>
-                {% endfor %}
-            </select>
             <canvas id="myChart" width="100%" height="100%"></canvas>
         </div>
     </div>
@@ -101,11 +95,6 @@ var myChart = new Chart(ctx, {
 
 
 
-
-
-function f_chartreroad(value){
-    location.href="/statics?presentation="+value;
-}
 
 
 </script>
