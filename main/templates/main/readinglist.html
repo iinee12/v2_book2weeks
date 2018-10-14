@@ -27,12 +27,15 @@
 									src="/static/images/content/member/{{read.writer}}.jpg" alt=""></a>
 							</td>
 							<td class="cart_description" width="740" style="word-break:break-all">
-								<h4><a href="/readingdetail?readId={{ read.readId }}">{{ read.title }}</a></h4>
+								<h4><a href="/readingdetail?readId={{ read.readId }}">{{ read.title }}</a>
 								{% for key, value in replycount.items %}
 								{% if key == read.readId %}
-								<span>[{{value}}]</span>
+								{% if value != 0 %}
+								[{{value}}]
+								{% endif %}
 								{% endif %}
 								{% endfor %}
+								</h4>
 								<p>Book : {{ read.bookId.booktitle }}</p>
 							</td>
 							<td class="cart_price" width="170" style="word-break:break-all">
