@@ -28,6 +28,11 @@
 							</td>
 							<td class="cart_description" width="740" style="word-break:break-all">
 								<h4><a href="/readingdetail?readId={{ read.readId }}">{{ read.title }}</a></h4>
+								{% for key, value in replycount.items %}
+								{% if key == read.readId %}
+								<span>[{{value}}]</span>
+								{% endif %}
+								{% endfor %}
 								<p>Book : {{ read.bookId.booktitle }}</p>
 							</td>
 							<td class="cart_price" width="170" style="word-break:break-all">

@@ -237,7 +237,10 @@ def bookDetail(request):
 # readinglist page loading.
 def readinglist(request):
     reading = Reading.objects.all().order_by('-created')
-    context = {'reading':reading}
+    replycount = {}
+    for read in reading:
+        replycount[read.readId] = len( readingReplys.objects.filter(readId=read.readId) )
+    context = {'reading':reading, 'replycount':replycount}
     return render(request, 'main/readinglist.html', context)
 
 def readingdetail(request):
