@@ -70,6 +70,7 @@ class starScore( models.Model ):
     scoreStar = models.CharField(max_length=30)
     scoreWriter = models.CharField(max_length=30)
     created = models.CharField(max_length=30)
+    scoreDuble = models.CharField(max_length=30, default='')
     def __str__(self):
         return str(self.bookId)+'('+str(self.scoreWriter)+')'+'('+str(self.scoreId)+')'
 

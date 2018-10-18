@@ -220,7 +220,8 @@ def bookDetail(request):
         averStar = 0
         totalCnt = len(star)
         for starindi in star:
-            indiaverStar = indiaverStar + int(starindi.scoreStar);
+            indiaverStar = indiaverStar + float(starindi.scoreStar)
+            starindi.scoreDuble = int(float(starindi.scoreStar)*2)
         if indiaverStar != 0:
             averStar = indiaverStar / totalCnt
             averStar = round(averStar,1)
