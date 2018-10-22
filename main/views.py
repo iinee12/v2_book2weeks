@@ -512,6 +512,7 @@ def chartReload(request):
     return HttpResponse(sss, content_type='application/json')
 
 def mypageMain(request):
+    userName = User.objects.get(username = request.user.get_username())
     return render(request, 'main/mypage.html')
 
 
