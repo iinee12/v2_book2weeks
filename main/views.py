@@ -513,7 +513,6 @@ def chartReload(request):
 
 def mypageMain(request):
     userName = User.objects.filter(username = request.user.get_username())
-    print(userName[0].first_name)
     mybooks = Ourbooks.objects.filter(presentation__contains=userName[0].first_name)
     for book in mybooks:
         book.imgindex = book.bookId[-3:]
