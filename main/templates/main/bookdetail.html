@@ -257,6 +257,11 @@
             if(confirm(scoreStar/2+"점으로 평가를 등록하시겠습니까?")){
                 document.getElementById('idScoreForBookId').value = bookId;
                 document.getElementById('idScoreForScoreStar').value = scoreStar/2;
+                var scoreText = document.getElementById('scoreText').value;
+                if (scoreText=='' || scoreText==null){
+                    document.getElementById('scoreText').value = '평가완료';
+                }
+                
                 document.getElementById('scoreregist').submit();
                 return false;
             }

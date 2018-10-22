@@ -52,7 +52,7 @@ class SoreForm(forms.ModelForm):
         widgets = {
             'bookId': forms.TextInput({'type':'hidden', 'id':'idScoreForBookId'}),
             'scoreStar': forms.TextInput({'type':'hidden', 'id':'idScoreForScoreStar'}),
-            'scoreComment': forms.Textarea({'rows':'3', 'class':'scoreTextField'})
+            'scoreComment': forms.Textarea({'rows':'3', 'class':'scoreTextField', 'id':'scoreText' })
         }
         fields = ('scoreComment', 'bookId', 'scoreStar' )
 

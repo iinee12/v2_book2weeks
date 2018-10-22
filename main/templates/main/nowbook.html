@@ -95,11 +95,40 @@
                                 </span>
                             </div>
                         <div>
-                                    <p class="star_rating" style="float: left;margin-right: 15px;margin-left: 20px;">
-                                        {% for i in "x"|rjust:onestar.scoreStar %}
-                                            <span style="color: #FE980F;" >★</span>
-                                        {% endfor %}<span>{{onestar.scoreStar}}점</span>
-                                    </p>
+                            <p class="star_rating" style="float: left;margin-right: 15px;margin-left: 20px;">
+                                {% for i in "x"|rjust:onestar.scoreDuble %}
+                                    {% if forloop.counter == 1 %}
+                                    <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                    <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 3 %}
+                                    <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 4 %}
+                                    <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 5 %}
+                                    <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 6 %}
+                                    <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 7 %}
+                                    <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 8 %}
+                                    <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 9 %}
+                                    <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
+                                    {% endif %}
+                                    {% if forloop.counter == 10 %}
+                                    <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
+                                    {% endif %}
+                                {% endfor %}<span>{{onestar.scoreStar}}점</span>
+                            </p>
                                     <span>{{onestar.scoreComment}}</span>
                                     {% if onestar.scoreWriter == user.username %}
                                     <a style="color: rgb(254, 15, 15);" onclick="f_scoreDelete( '{{ onestar.scoreId }}' )">
@@ -111,41 +140,28 @@
                         </div>
                         <input type="hidden" class="scoreWriterValue" value="{{onestar.scoreWriter}}"/>
                         {% endfor %}
-
-
-                        <p class="star_rating" style="float: left;margin-right: 15px;margin-left: 20px;">
-                            {% for i in "x"|rjust:onestar.scoreDuble %}
-                                {% if forloop.counter == 1 %}
-                                <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 2 %}
-                                <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 3 %}
-                                <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 4 %}
-                                <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 5 %}
-                                <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 6 %}
-                                <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 7 %}
-                                <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 8 %}
-                                <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 9 %}
-                                <img style="margin-right:0%;" src="{% static 'images/home/star_left_full.png' %}"/>
-                                {% endif %}
-                                {% if forloop.counter == 10 %}
-                                <img style="margin-left:-5.5px;" src="{% static 'images/home/star_right_full.png' %}"/>
-                                {% endif %}
-                            {% endfor %}<span>{{onestar.scoreStar}}점</span>
+                        <p class="star_rating" style="float: left; margin-top: 15px;margin-right: 15px;">
+                            <label>별점(1~5점) : </label>
+                                <a href="#" style="margin-right:0%;"  onclick="f_starScore('0.5')">
+                                <img id="star1" src="{% static 'images/home/star_left_gray.png' %}"/></a>
+                                <a href="#" style="margin-left:-5.5px;"  onclick="f_starScore('1')" >
+                                    <img id="star2" src="{% static 'images/home/star_right_gray.png' %}"/></a>
+                                <a href="#" style="margin-right:0%;"  onclick="f_starScore('1.5')">
+                                    <img id="star3" src="{% static 'images/home/star_left_gray.png' %}"/></a>
+                                <a href="#" style="margin-left:-5.5px;"  onclick="f_starScore('2')" >
+                                    <img id="star4" src="{% static 'images/home/star_right_gray.png' %}"/></a>
+                                <a href="#" style="margin-right:0%;" id="star1" onclick="f_starScore('2.5')">
+                                    <img id="star5" src="{% static 'images/home/star_left_gray.png' %}"/></a>
+                                <a href="#" style="margin-left:-5.5px;" id="star2" onclick="f_starScore('3')" >
+                                    <img id="star6" src="{% static 'images/home/star_right_gray.png' %}"/></a>
+                                <a href="#" style="margin-right:0%;" id="star1" onclick="f_starScore('3.5')">
+                                    <img id="star7" src="{% static 'images/home/star_left_gray.png' %}"/></a>
+                                <a href="#" style="margin-left:-5.5px;" id="star2" onclick="f_starScore('4')" >
+                                    <img id="star8" src="{% static 'images/home/star_right_gray.png' %}"/></a>
+                                <a href="#" style="margin-right:0%;" id="star1" onclick="f_starScore('4.5')">
+                                    <img id="star9" src="{% static 'images/home/star_left_gray.png' %}"/></a>
+                                <a href="#" style="margin-left:-5.5px;" id="star2" onclick="f_starScore('5')" >
+                                    <img id="star10" src="{% static 'images/home/star_right_gray.png' %}"/></a>
                         </p>
                     <form method="post" action="/scoreregist/" id="scoreregist">
                         {% csrf_token %}
@@ -199,9 +215,25 @@
         }
     }
     function f_starScore(score){
-        $(".star_rating a").removeClass("on");
-        for(var i=1; i<=score; i++){
-            $("#star"+i).addClass("on")
+        changeScore = score*2;
+        for(var i=1; i<=10; i++){
+            if(i%2==0){
+                $("#star"+i).attr("src","{% static 'images/home/star_right_gray.png' %}");
+                $("#star"+i).removeClass("starscore");
+            }else{
+                $("#star"+i).attr("src","{% static 'images/home/star_left_gray.png' %}");
+                $("#star"+i).removeClass("starscore");
+            }
+        }
+        
+        for(var i=1; i<=changeScore; i++){
+            if(i%2==0){
+                $("#star"+i).attr("src","{% static 'images/home/star_right_full.png' %}");
+                $("#star"+i).addClass("starscore");
+            }else{
+                $("#star"+i).attr("src","{% static 'images/home/star_left_full.png' %}");
+                $("#star"+i).addClass("starscore");
+            }
         }
     }
     function f_scoreRegist(bookId){
@@ -213,14 +245,17 @@
                 return false;
             }
         }
-        
-        var scoreStar = document.getElementsByClassName('on').length;
+        var scoreStar = document.getElementsByClassName('starscore').length;
         if(scoreStar==0){
             alert("별을 클릭하여 점수를 입력해주세요!");
         }else{
-            if(confirm(scoreStar+"점으로 평가를 등록하시겠습니까?")){
+            if(confirm(scoreStar/2+"점으로 평가를 등록하시겠습니까?")){
                 document.getElementById('idScoreForBookId').value = bookId;
-                document.getElementById('idScoreForScoreStar').value = scoreStar;
+                document.getElementById('idScoreForScoreStar').value = scoreStar/2;
+                var scoreText = document.getElementById('scoreText').value;
+                if (scoreText=='' || scoreText==null){
+                    document.getElementById('scoreText').value = '평가완료';
+                }
                 document.getElementById('scoreregist').submit();
                 return false;
             }

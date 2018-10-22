@@ -76,7 +76,9 @@ def scoreregistfordetail(request):
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
         form = SoreForm(request.POST)
+        print('valid before------------')
         if form.is_valid():
+            print('valid after------------')
             post = form.save(commit=False)
             post.created = nowDateTime
             post.scoreWriter = request.session['member_id']
@@ -91,7 +93,8 @@ def nowbookCall(request):
     nowbook = Ourbooks.objects.filter(statusflag='C')
     senten = sentence.objects.filter(bookId=nowbook[0].bookId)
     star = starScore.objects.filter(bookId=nowbook[0].bookId)
-
+    for starindi in star:
+        starindi.scoreDuble = int(float(starindi.scoreStar)*2)
     now = time.localtime()
     nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
