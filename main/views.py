@@ -512,8 +512,24 @@ def chartReload(request):
     return HttpResponse(sss, content_type='application/json')
 
 def mypageMain(request):
-    userName = User.objects.get(username = request.user.get_username())
-    return render(request, 'main/mypage.html')
+    userName = User.objects.filter(username = request.user.get_username())
+    print(userName[0].first_name)
+    mybooks = Ourbooks.objects.filter(presentation__contains=userName[0].first_name)
+    for book in mybooks:
+        book.imgindex = book.bookId[-3:]
+    context = {'mybooks':mybooks}
+    return render(request, 'main/mypage.html', context)
+
+def mypageWish(request):
+    mybooks = Wishbooks.objects.filter(register=request.user.get_username())
+    for book in mybooks:
+        book.imgindex = book.bookId[-3:]
+    context = {'mybooks':mybooks}
+    return render(request, 'main/mypagewish.html', context)
+
+
+
+
 
 
 
