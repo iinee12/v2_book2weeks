@@ -527,7 +527,27 @@ def mypageWish(request):
     return render(request, 'main/mypagewish.html', context)
 
 
+def mystatics(request):
+    
 
+    #총 권수 구하기
+    userName = User.objects.filter(username = request.user.get_username())
+    mybooks = Ourbooks.objects.filter(presentation__contains=userName[0].first_name)
+    totalCount = len(mybooks)
+
+
+    ourbookcount=[]
+    cateName = category.objects.all().order_by('categoryCode')
+    for catego in cateName :
+        if catego.categoryName != '전체':
+            ourbookcount.append(len(Ourbooks.objects.filter(category=catego.categoryName, presentation__contains=userName[0].first_name, statusflag='R')))
+    ddd = {'count':ourbookcount}
+    sss = json.dumps(ddd)
+    
+    userInfo = User.objects.all()
+
+    context = {'totalCount':totalCount, 'ourbookcount':sss, 'userInfo':userInfo}
+    return render(request, 'main/mystatics.html', context)
 
 
 

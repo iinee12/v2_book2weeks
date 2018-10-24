@@ -19,6 +19,7 @@ urlpatterns = [
     path('nowbooksendeletefordetail/', views.nowbooksendeletefordetail),
     path('nowbookscoredeletefordetail/', views.nowbookscoredeletefordetail),
     path('nextbook/', views.nextbook),
+    path('mystatics/', views.mystatics),
     url(r'^mypageMain/$', views.mypageMain, name='mypageMain'),
     url(r'^mypageWish/$', views.mypageWish, name='mypageWish'),
     url(r'^like/$', views.like, name='like'),
