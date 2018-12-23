@@ -63,6 +63,14 @@ class sentence( models.Model ):
         return str(self.bookId)+'('+str(self.senWriter)+')'+'('+str(self.senId)+')'
 
 
+class petercatSentence( models.Model ):
+    senId = models.CharField(max_length=30, primary_key=True)
+    bookName = models.CharField(max_length=100)
+    senContent = models.TextField(default='')
+    senWriter = models.CharField(max_length=30)
+    register = models.CharField(max_length=30)
+    created = models.CharField(max_length=30)
+
 class starScore( models.Model ):
     scoreId = models.CharField(max_length=30, primary_key=True)
     bookId = models.ForeignKey(Ourbooks, '')

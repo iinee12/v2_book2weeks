@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Book2weeks</title>
+	<title>PeterCatSentence</title>
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="{% static 'css/prettyPhoto.css' %}">
@@ -30,7 +30,7 @@
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li>
-									<a><i class="fa fa-star"></i>  Welcome to Book2weeks</a>
+									<a><i class="fa fa-star"></i>  Welcome PeterCat Sentence</a>
 								</li>
 							</ul>
 						</div>
@@ -47,7 +47,7 @@
 					<div class="col-sm-4">
 						<div class="logo pull-left">
 							<a href="/">
-								<img src="{% static 'images/home/logo.png' %}" alt="" />
+								<img src="{% static 'images/home/peterlogo.jpg' %}" alt="" />
 							</a>
 						</div>
 					</div>
@@ -56,7 +56,6 @@
 							<div class="shop-menu pull-right">
 								<ul class="nav navbar-nav">
 									<li><a><i class="fa fa-user"></i> {{user.username}}</li></a>
-									<li><a href="{% url 'mypageMain' %}"><i class="fa fa-book" aria-hidden="true"></i> my page</li></a>
 									<li><a href="{% url 'logout' %}"><i class="fa fa-lock"></i> Logout</a></li>
 								</ul>
 							</div>
@@ -83,31 +82,13 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li>
-									<a href="/" id="menuHome" class="" onclick="menu_click('Home');">Home</a>
-								</li>
-								<li class="dropdown">
-									<a href="/book/" id="menuBook" onclick="menu_click('Book');">책장<i class="fa fa-angle-down"></i>
-									</a>
-									<ul role="menu" class="sub-menu">
-										<li>
-											<a  href="/book/"  >읽은책</a>
-										</li>
-										<li>
-											<a href="/nowbook/">읽는책</a>
-										</li>
-										<li>
-											<a href="/nextbook/">읽을책</a>
-										</li>										
-									</ul>
+									<a href="/" id="menuHome" class="" onclick="menu_click('Home');">조회</a>
 								</li>
 								<li>
-									<a href="/readinglist/" id="menuReading" onclick="menu_click('Reading');">노트</a>
+									<a href="/petercat/" id="menuReading" onclick="menu_click('Reading');">등록</a>
 								</li>
 								<li>
-									<a href="/meetingmain/" id="menuMeeting" onclick="menu_click('Meeting');">모임</a>
-								</li>
-								<li>
-									<a href="/statics/" id="menustatics" onclick="menu_click('Statics');">통계</a>
+									<a href="#" id="menustatics" onclick="menu_click('Statics');">통계</a>
 								</li>
 							</ul>
 						</div>

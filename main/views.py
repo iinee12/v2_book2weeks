@@ -3,8 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm
-from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys
+from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm, PeterCatForm
+from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys, petercatSentence
 from django.contrib import messages 
 from django.shortcuts import redirect
 
@@ -21,18 +21,30 @@ import sys
 import json
 
 # index page loading.
-def index(request):
-    cateName = category.objects.all().order_by('categoryCode')
-    ourbook = Ourbooks.objects.filter(statusflag='R').order_by('-readingdate')[:12]
-    for book in ourbook:
-        book.imgindex = book.bookId[-3:]
-    meeting = Meeting.objects.all().order_by('-meetingdate')[:3]
-    count = 0
-    for meet in meeting:
-        count = count +1
-        meet.lastorder = str(count)
-    context = {'meeting':meeting, 'category':cateName, 'ourbooks':ourbook}
 
+def petercatRester(request):
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = PeterCatForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created = nowDateTime
+            post.register = request.session['member_id']
+            post.senId = str(request.session['member_id'])+str(makePkDateTime)+str(random.randrange(1,100))
+            post.save()
+            return redirect('../')
+    else:
+        return redirect("/")
+def petercat(request):
+    form = PeterCatForm()
+    context = {'form': form, }
+    return render(request, 'main/petercat.html', context)
+
+def index(request):
+    petercatSenten = petercatSentence.objects.all()
+    context = {'petercatSenten':petercatSenten}
     return render(request, 'main/index.html', context)
 def nowbooksendelete(request):
     senten = sentence.objects.get(senId=request.GET.get('senId'))
@@ -76,9 +88,7 @@ def scoreregistfordetail(request):
     makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
     if request.method == "POST":
         form = SoreForm(request.POST)
-        print('valid before------------')
         if form.is_valid():
-            print('valid after------------')
             post = form.save(commit=False)
             post.created = nowDateTime
             post.scoreWriter = request.session['member_id']

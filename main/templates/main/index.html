@@ -1,106 +1,44 @@
 {% extends "main/layout.html" %}
 <!DOCTYPE html> {% load static %}
 {% block content %}
-	<section id="slider">
-		<!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						<div class="carousel-inner">
-							{% for onemeeting in meeting %} 
-							{% if onemeeting.lastorder == "1" %}
-							<div class="item active">
-								{% else %}
-								<div class="item">
-									{% endif %}
-									<div class="col-sm-6">
-										<h1>
-											<span>M</span>eeting</h1>
-										<h2>{{ onemeeting.meetingtitle }}</h2>
-										<p class="slider_content">{{ onemeeting.content }}</p>
-										<a type="button" href="/meeting?meetingid={{ onemeeting.meetingId}}" 
-										class="btn btn-default get">More</a>
-									</div>
-									<div class="col-sm-6">
-										<img src="{% static onemeeting.photopath %}" class="girl img-responsive" alt="" />
-									</div>
-								</div>
-								{% endfor %}
-							</div>
 
-							<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-								<i class="fa fa-angle-left"></i>
-							</a>
-							<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-								<i class="fa fa-angle-right"></i>
-							</a>
-						</div>
-
-					</div>
-				</div>
-			</div>
-	</section>
-	<!--/slider-->
-
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian">
-								<!--category-productsr-->
-								{% for cateName in category %}
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											{% if cateName.categoryName == "전체" %}
-											<a href="/book/">{{ cateName.categoryName }}</a>
-											{% else %}
-											<a href="/book?kindName={{ cateName.categoryName }}">{{ cateName.categoryName }}</a>
-											{% endif %}
-										</h4>
-									</div>
-								</div>
-								{% endfor %}
-						</div>
-						<!--/category-products-->
-					</div>
-				</div>
-
-				<div class="col-sm-9 padding-right">
-					<div class="features_items">
-						<h2 class="title text-center">Book</h2>
-					</div>
-
-					<div class="category-tab">
-						<div class="tab-content">
-
-							<div class="tab-pane fade active in" id="tshirt">
-								{% for ourbook in ourbooks %}
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo">
-												<a href="/bookDetail?bookId={{ ourbook.bookId }}"><img src="http://image.kyobobook.co.kr/images/book/large/{{ ourbook.imgindex }}/l{{ ourbook.bookId }}.jpg" alt="" /></a>
-											</div>
-
-										</div>
-									</div>
-								</div>
-								{% endfor %}
-							</div>
-						</div>
-					</div>
-					<!--/category-tab-->
-				</div>
-			</div>
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+			  <li><a href="/petercat/">등록 +</a></li>
+			</ol>
 		</div>
-	</section>
+		<div class="table-responsive cart_info">
+			<table class="table table-condensed">
+				<thead>
+					<tr class="cart_menu">
+						<td class="price" style="padding-left: 30px;" width="150">책</td>
+						<td class="description">문장</td>
+						<td class="quantity">등록자</td>
+						<td class="quantity">등록일</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for sentence in petercatSenten %}
+					<tr>
+						<td class="cart_product" width="150" style="padding-right: 30px;">
+								<p>{{ sentence.bookName }}</p>
+						</td>
+						<td class="cart_description" width="740" style="word-break:break-all">
+							<p>{{ sentence.senContent }}</p>
+						</td>
+						<td class="cart_price" width="170" style="word-break:break-all">
+								<p>{{ sentence.register }}</p>
+						</td>
+						<td class="cart_quantity"width="150" style="word-break:break-all">
+							<p>{{ sentence.created }}</p>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section> <!--/#cart_items-->
 	{% endblock %}
