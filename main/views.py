@@ -34,6 +34,11 @@ def index(request):
     context = {'meeting':meeting, 'category':cateName, 'ourbooks':ourbook}
 
     return render(request, 'main/index.html', context)
+
+
+def petercat(request):
+    return render(request, 'main/petercat.html')
+
 def nowbooksendelete(request):
     senten = sentence.objects.get(senId=request.GET.get('senId'))
     senten.delete()
