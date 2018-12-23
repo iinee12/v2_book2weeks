@@ -14,6 +14,7 @@ urlpatterns = [
     path('petercat/', views.petercat),
     path('petercatRester/', views.petercatRester),
     path('nowbook/', views.nowbookCall),
+    path('petercat/', views.petercat),
     path('wishlist/', views.wishlist),
     path('wishbookdelete/', views.wishbookdelete),
     path('nowbooksendelete/', views.nowbooksendelete),
