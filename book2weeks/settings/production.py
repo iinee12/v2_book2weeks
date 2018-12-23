@@ -8,4 +8,4 @@ ALLOWED_HOSTS = [
     'book2weeks.net',
 ]
 
-LOGIN_URL = 'https://book2weeks.net/login'
+LOGIN_URL = 'http://book2weeks.net/login'
