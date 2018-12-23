@@ -21,7 +21,7 @@ class PeterCatForm(forms.ModelForm):
             'senId': forms.TextInput({'type':'hidden', 'id':'senIdforupdate'}),
             'bookName': forms.TextInput({'class':'form-control', 'placeholder':'책제목'}),
             'senWriter': forms.TextInput({'class':'form-control', 'placeholder':'작가'}),
-            'senContent': forms.Textarea({'class':'form-control','id':'message', 'placeholder':'문장', 'rows':'5'}),
+            'senContent': forms.Textarea({'class':'form-control','id':'message', 'placeholder':'문장', 'rows':'5'})
         }
         fields = ('senWriter', 'senContent', 'bookName' )
 

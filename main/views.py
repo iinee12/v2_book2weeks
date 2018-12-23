@@ -7,7 +7,6 @@ from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, Re
 from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys, petercatSentence
 from django.contrib import messages 
 from django.shortcuts import redirect
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
@@ -47,9 +46,6 @@ def index(request):
     context = {'petercatSenten':petercatSenten}
     return render(request, 'main/index.html', context)
 
-
-def petercat(request):
-    return render(request, 'main/petercat.html')
 
 def nowbooksendelete(request):
     senten = sentence.objects.get(senId=request.GET.get('senId'))
