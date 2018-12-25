@@ -18,12 +18,12 @@ class PeterCatForm(forms.ModelForm):
     class Meta:
         model = petercatSentence
         widgets = {
-            'senId': forms.TextInput({'type':'hidden', 'id':'senIdforupdate'}),
+            'senId': forms.TextInput({'type':'hidden', 'id':'senIdforupdate', 'name':'senIdforupdate'}),
             'bookName': forms.TextInput({'class':'form-control', 'placeholder':'책제목'}),
             'senWriter': forms.TextInput({'class':'form-control', 'placeholder':'작가'}),
             'senContent': forms.Textarea({'class':'form-control','id':'message', 'placeholder':'문장', 'rows':'5'})
         }
-        fields = ('senWriter', 'senContent', 'bookName' )
+        fields = ('senWriter', 'senContent', 'bookName', 'senId' )
 
 class wishbookForm(forms.ModelForm):
     

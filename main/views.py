@@ -47,6 +47,36 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
+def senChange(request):
+
+    senId = request.GET.get('senId')
+    print(senId)
+    print(request.POST.get('senId'))
+    now = time.localtime()
+    nowDateTime = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    makePkDateTime = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    if request.method == "POST":
+        form = PeterCatForm(request.POST)
+        reading_instance = petercatSentence.objects.get(senId=request.POST.get('senId'))
+        reading_instance.created = nowDateTime
+        reading_instance.register = request.session['member_id']
+        reading_instance.senId = request.POST.get('senId')
+        reading_instance.bookName = request.POST.get('bookName')
+        reading_instance.senContent = request.POST.get('senContent')
+        reading_instance.senWriter = request.POST.get('senWriter')
+        reading_instance.save()
+        return redirect('../')
+    else:
+        reading = petercatSentence.objects.filter(senId=senId)
+        print(reading[0].senContent)
+        form = PeterCatForm(initial={'senContent': reading[0].senContent, 'bookName':reading[0].bookName,  'senWriter':reading[0].senWriter,
+        'senId': reading[0].senId})
+    context = {'form': form, 'senId':senId}
+    return render(request, 'main/petercat.html', context)
+
+
+
+
 def nowbooksendelete(request):
     senten = sentence.objects.get(senId=request.GET.get('senId'))
     senten.delete()

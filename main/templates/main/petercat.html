@@ -14,12 +14,13 @@
                                     <div class="form-group col-md-12">
                                             {{ form.senContent }}
                                     </div>
+                                    {{ form.senId }}
                     <br/>
-                    {% if readId is None %}
+                    {% if senId is None %}
                     <button type="button" class="btn btn-default get" onclick="f_readingRegist()"
                     style="margin-bottom: 15px;float:right;">등록</button>
                     {% else %}
-                    <button type="button" class="btn btn-default get" onclick="f_readingupdateaction('{{readId}}')"
+                    <button type="button" class="btn btn-default get" onclick="f_readingchange('{{senId}}')"
                     style="margin-bottom: 15px;float:right;">수정</button>
                     {% endif %}
                 </form>
@@ -29,6 +30,18 @@
 
 <script>
     function f_readingRegist(){
+        var d = new Date();
+        var currentDate = d.getFullYear()+""+d.getMonth()+""+d.getDate()+
+        ""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+        document.getElementById('senIdforupdate').value = '{{user.username}}'+currentDate;
+        document.getElementById('frmSubmit').submit();
+    }
+
+
+    function f_readingchange(senId){
+        document.getElementById('senIdforupdate').value = senId;
+        document.getElementById('frmSubmit').method = "post";
+        document.getElementById('frmSubmit').action ='/senChange/';
         document.getElementById('frmSubmit').submit();
     }
 </script>

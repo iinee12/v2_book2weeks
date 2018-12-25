@@ -5,14 +5,24 @@
 
 function check_all() {
 	var chkbox = document.getElementsByName('sentenceCheck');
+	var count = 0;
+
 	for(i=0; i < chkbox.length; i++) {
-		chkbox[i].checked = true;
+		if(chkbox[i].checked){
+			count++;
+		}
 	}
-}
-function uncheck_all() {
-	for(i=0; i < chkbox.length; i++) {
+	
+	if (count > 0){
+		for(i=0; i < chkbox.length; i++) {
 		chkbox[i].checked = false;
+		}
+	}else{
+		for(i=0; i < chkbox.length; i++) {
+		chkbox[i].checked = true;
+		}
 	}
+	
 }
 
 
@@ -22,7 +32,7 @@ function sentencePrint(){
 	var html = "";
 	for ( var i = 0; i<chkbox.length; i++ ){
 		if( chkbox[i].checked ){
-			html = html + "<div style='width:21cm; page-break-before:always; min-height: 29.7cm; padding:1.5cm; margin: 0 auto;'><p><font face='바탕체' size='4em'>"
+			html = html + "<div style='width:21cm; page-break-before:always; min-height: 25cm; padding:1.5cm; margin: 0 auto;'><p><font face='바탕체' size='4em'>"
 			+document.getElementById('content_'+i).textContent+"</font></p><span style='float:right;'><font face='바탕체'>『"
 			+document.getElementById('title_'+i).textContent+"』</font></span><span style='float:right;'><font face='바탕체'>"
 			+document.getElementById('writer_'+i).textContent+"</font></span></div>";
@@ -37,6 +47,10 @@ function sentencePrint(){
 	}
 	window.print();
 }
+function f_senchange(senId){
+        location.href="/senChange?senId="+senId;
+}
+
 </script>
 
 </div>
@@ -58,8 +72,8 @@ function sentencePrint(){
 						</td>
 						<td class="price" style="padding-left: 30px;" width="150">책</td>
 						<td class="description">문장</td>
-						<td class="quantity">등록자</td>
-						<td class="quantity">등록일</td>
+						<td class="quantity">작가</td>
+						<td class="quantity">수정하기</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -72,13 +86,13 @@ function sentencePrint(){
 								<p id="title_{{forloop.counter0}}">{{ sentence.bookName }}</p>
 						</td>
 						<td class="cart_description" width="740" style="word-break:break-all">
-							<p id="content_{{forloop.counter0}}">{{ sentence.senContent }}</p>
+							<p id="content_{{forloop.counter0}}">{{ sentence.senContent|linebreaksbr }}</p>
 						</td>
 						<td class="cart_price" width="170" style="word-break:break-all">
 								<p id="writer_{{forloop.counter0}}">{{ sentence.senWriter }}</p>
 						</td>
 						<td class="cart_quantity"width="150" style="word-break:break-all">
-							<p>{{ sentence.created }}</p>
+							<div class="breadcrumbs"><ol class="breadcrumb"><li><a href="#" onclick="f_senchange('{{sentence.senId}}')">수정</a></li></ol></div>
 						</td>
 					</tr>
 					{% endfor %}
