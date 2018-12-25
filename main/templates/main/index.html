@@ -1,11 +1,51 @@
 {% extends "main/layout.html" %}
 <!DOCTYPE html> {% load static %}
 {% block content %}
+<script type="text/javascript">
+
+function check_all() {
+	var chkbox = document.getElementsByName('sentenceCheck');
+	for(i=0; i < chkbox.length; i++) {
+		chkbox[i].checked = true;
+	}
+}
+function uncheck_all() {
+	for(i=0; i < chkbox.length; i++) {
+		chkbox[i].checked = false;
+	}
+}
+
+
+function sentencePrint(){
+	var initBody = document.body.innerHTML;
+	var chkbox = document.getElementsByName('sentenceCheck');
+	var html = "";
+	for ( var i = 0; i<chkbox.length; i++ ){
+		if( chkbox[i].checked ){
+			html = html + "<div style='width:21cm; page-break-before:always; min-height: 29.7cm; padding:2cm; margin: 0 auto;'><p><font size='5em'>"
+			+document.getElementById('content_'+i).textContent+"</font></p><span><i>『"
+			+document.getElementById('title_'+i).textContent+"』</i></span><span><i>"
+			+document.getElementById('writer_'+i).textContent+"</i></span></div>";
+		}
+	}
+	window.onbeforeprint = function(){
+		document.body.innerHTML = "";
+		document.body.innerHTML = html;
+	}
+	window.onafterprint = function(){
+		document.body.innerHTML = initBody;
+	}
+	window.print();
+}
+</script>
+
+</div>
 
 <section id="cart_items">
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
+				<li><a href="#" onclick="sentencePrint()">출력</a></li>
 			  <li><a href="/petercat/">등록 +</a></li>
 			</ol>
 		</div>
@@ -13,6 +53,9 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr class="cart_menu">
+						<td class="price" width="10">
+							<input type="checkbox" width="10" onclick="check_all()"/>
+						</td>
 						<td class="price" style="padding-left: 30px;" width="150">책</td>
 						<td class="description">문장</td>
 						<td class="quantity">등록자</td>
@@ -22,14 +65,17 @@
 				<tbody>
 					{% for sentence in petercatSenten %}
 					<tr>
+						<td width="10">
+							<input type="checkbox" name="sentenceCheck" id="checkboxforsentence"/>
+						</td>
 						<td class="cart_product" width="150" style="padding-right: 30px;">
-								<p>{{ sentence.bookName }}</p>
+								<p id="title_{{forloop.counter0}}">{{ sentence.bookName }}</p>
 						</td>
 						<td class="cart_description" width="740" style="word-break:break-all">
-							<p>{{ sentence.senContent }}</p>
+							<p id="content_{{forloop.counter0}}">{{ sentence.senContent }}</p>
 						</td>
 						<td class="cart_price" width="170" style="word-break:break-all">
-								<p>{{ sentence.register }}</p>
+								<p id="writer_{{forloop.counter0}}">{{ sentence.senWriter }}</p>
 						</td>
 						<td class="cart_quantity"width="150" style="word-break:break-all">
 							<p>{{ sentence.created }}</p>
