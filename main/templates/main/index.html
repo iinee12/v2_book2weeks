@@ -79,8 +79,8 @@ function f_senchange(senId){
 				<tbody>
 					{% for sentence in petercatSenten %}
 					<tr>
-						<td width="10">
-							<input type="checkbox" name="sentenceCheck" id="checkboxforsentence"/>
+						<td  width="10">
+							<input type="checkbox" name="sentenceCheck" id="checkboxforsentence" style="margin-bottom: 20px;"/>
 						</td>
 						<td class="cart_product" width="150" style="padding-right: 30px;">
 								<p id="title_{{forloop.counter0}}">{{ sentence.bookName }}</p>
