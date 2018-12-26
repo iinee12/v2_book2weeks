@@ -12,6 +12,7 @@ urlpatterns = [
     path('book/', views.bookpage),
     path('statics/', views.staticsPage),
     path('petercat/', views.petercat),
+    path('petercatmenu/', views.petercatmenu),
     path('petercatRester/', views.petercatRester),
     path('nowbook/', views.nowbookCall),
     path('senChange/', views.senChange),

@@ -110,3 +110,26 @@ class readingReplys ( models.Model):
     created = models.CharField(max_length=30)
     def __str__(self):
         return str(self.readId)+'('+str(self.replyWriter)+')'+'('+str(self.replyId)+')'
+
+
+class petercatMenu ( models.Model):
+    menuId = models.CharField(max_length=30, primary_key=True)
+    korname = models.TextField(default='')
+    engname = models.TextField(default='')
+    zhname = models.TextField(default='')
+    price = models.TextField(max_length=30, default='')
+    useYn = models.TextField(max_length=30, default='')
+    specialgubun = models.CharField(max_length=30, default='')
+    category = models.CharField(max_length=30, default='')
+    def __str__(self):
+        return str(self.korname)
+class petercatBook ( models.Model):
+    bookId = models.CharField(max_length=30, primary_key=True)
+    meetingcategory = models.CharField(max_length=30, default='')
+    meetingtitle = models.CharField(max_length=30, default='')
+    imgindex = models.CharField(max_length=30, default='')
+    booktitle = models.TextField(default='')
+    meeingdate = models.TextField(default='')
+    meeingtime = models.TextField(default='')
+    def __str__(self):
+        return str(self.booktitle)

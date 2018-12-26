@@ -4,14 +4,15 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import PostForm, LoginForm, SentenceForm, SoreForm, wishbookForm, ReplyForm, PeterCatForm
-from .models import Meeting, category, Ourbooks, Reading, sentence, starScore, Wishbooks, readingReplys, petercatSentence
+from .models import *
 from django.contrib import messages 
 from django.shortcuts import redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
+from datetime import timedelta
 
-
+import datetime
 import time
 import random
 import urllib.request
@@ -74,6 +75,25 @@ def senChange(request):
     context = {'form': form, 'senId':senId}
     return render(request, 'main/petercat.html', context)
 
+def getDayName(year, month, day):
+	return ['0','1','2','3','4','5','6'][datetime.date(year, month, day).weekday()]
+
+def petercatmenu(request):
+    coffeeMenu = petercatMenu.objects.filter(category='COFFEE', useYn='Y')
+    cocktailMenu = petercatMenu.objects.filter(category='COCKTAIL', useYn='Y')
+    sideMenu = petercatMenu.objects.filter(category='SIDE MENU', useYn='Y')
+    beverageMenu = petercatMenu.objects.filter(category='BEVERGE', useYn='Y')
+    now = time.localtime()
+    strweek = getDayName(now.tm_year, now.tm_mon, now.tm_mday)
+    nowday = datetime.date(now.tm_year, now.tm_mon, now.tm_mday)
+    startday = nowday + timedelta(days=-int(strweek))
+    endday = nowday + timedelta(days=(6-int(strweek)))
+    print(startday, endday)
+
+    weekbooks = petercatBook.objects.filter(meeingdate__range=[str(startday), str(endday)]).order_by('meeingtime')
+    context = {'coffeeMenu': coffeeMenu, 'cocktailMenu': cocktailMenu,
+     'beverageMenu': beverageMenu, 'sideMenu': sideMenu, 'weekbooks':weekbooks}
+    return render(request, 'main/petercatMenu.html', context)
 
 
 
