@@ -69,16 +69,16 @@
         <tr><td><h1 style="margin-bottom:3px;margin-top:3px;"><FONT face="Papyrus">COFFEE</h1></td></tr>
         {% for coffee in coffeeMenu %}
         <tr>
-            <td>{{ coffee.korname }}/<span>{{ coffee.engname }}</span></td>
+            <td>{{ coffee.korname }}/<span style="margin-right:5px;">{{ coffee.engname }}</span> <img src="{% static 'images/home/new.gif' %}"/></td>
             <td><span style="margin-left:40px;">{{ coffee.price }}</span></td>
-        </tr>
+        </tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
         {% endfor %}
         <tr><td><h1 style="margin-bottom:3px;margin-top:20px;"><FONT face="Papyrus">COCKTAIL</h1></td></tr>
         {% for cocktail in cocktailMenu %}
         <tr>
             <td>{{ cocktail.korname }}/<span>{{ cocktail.engname }}</span></td>
             <td><span style="margin-left:40px;">{{ cocktail.price }}</span></td>
-        </tr>
+        </tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
         {% endfor %}
     </table>
     <table id="beverageAndsidemenu">
@@ -87,14 +87,14 @@
             <tr>
                 <td>{{ beverage.korname }}/<span>{{ beverage.engname }}</span></td>
                 <td><span style="margin-left:40px;">{{ beverage.price }}</span></td>
-            </tr>
+            </tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             {% endfor %}
             <tr><td><h1 style="margin-bottom:3px;margin-top:20px;"><FONT face="Papyrus">SIDEMENU</h1></td></tr>
             {% for side in sideMenu %}
             <tr>
                 <td>{{ side.korname }}/<span>{{ side.engname }}</span></td>
                 <td><span style="margin-left:40px;">{{ side.price }}</span></td>
-            </tr>
+            </tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             {% endfor %}
     </table>
 </div>

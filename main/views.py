@@ -79,6 +79,7 @@ def getDayName(year, month, day):
 	return ['0','1','2','3','4','5','6'][datetime.date(year, month, day).weekday()]
 
 def petercatmenu(request):
+    
     coffeeMenu = petercatMenu.objects.filter(category='COFFEE', useYn='Y')
     cocktailMenu = petercatMenu.objects.filter(category='COCKTAIL', useYn='Y')
     sideMenu = petercatMenu.objects.filter(category='SIDE MENU', useYn='Y')
