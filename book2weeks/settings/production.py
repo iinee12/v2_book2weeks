@@ -4,8 +4,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '13.125.185.199',
-    'www.book2weeks.net',
-    'book2weeks.net',
+    'www.petercat.co.kr',
+    'petercat.co.kr',
 ]
 
 LOGIN_URL = 'http://petercat.co.kr/login'
