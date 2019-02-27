@@ -32,7 +32,7 @@ function sentencePrint(){
 	var html = "";
 	for ( var i = 0; i<chkbox.length; i++ ){
 		if( chkbox[i].checked ){
-			html = html + "<div style='width:21cm; page-break-before:always; min-height: 25cm; padding:1.5cm; margin: 0 auto;'><p><font face='바탕체' size='4em'>"
+			html = html + "<div style='width:21cm; page-break-before:always; min-height: 25cm; padding:1.5cm; margin: 0 auto;'><p><font face='바탕체' size='5em'>"
 			+document.getElementById('content_'+i).textContent+"</font></p><span style='float:right;'><font face='바탕체'>『"
 			+document.getElementById('title_'+i).textContent+"』</font></span><span style='float:right;'><font face='바탕체'>"
 			+document.getElementById('writer_'+i).textContent+"</font></span></div>";
